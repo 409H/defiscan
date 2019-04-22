@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Button, Input, Heading } from '@mycrypto/ui';
+import { Button, Input, Heading, Address } from '@mycrypto/ui';
 import styled, { ThemeProvider } from 'styled-components';
 
 import Protocols from './protocols/index';
@@ -74,7 +74,13 @@ class AddressSearch extends Component {
                     this.state.search.address !== null 
                         ?
                             <div>
-                                <Heading as="h4">Defi Profile for {this.state.search.ens ? this.state.search.ens_name : this.state.search.address}</Heading>
+                                <Heading as="h4">Defi Profile for 
+                                {this.state.search.ens 
+                                    ? 
+                                        <Address title={this.state.search.ens_name} address={this.state.search.address} />
+                                    : 
+                                        <Address title={this.state.search.address} address={this.state.search.address} />
+                                }</Heading>
                                 <Protocols address={this.state.search.address} />
                             </div>
                         :

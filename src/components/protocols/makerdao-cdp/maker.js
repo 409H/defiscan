@@ -4,6 +4,8 @@ import ImageIcon from '../../ImageIcon';
 import { StackedCard, Address, Tooltip, Icon } from '@mycrypto/ui';
 import styled, { ThemeProvider } from 'styled-components';
 
+//import Maker from '@makerdao/dai';
+
 import Web3 from 'web3';
 let web3;
 if (typeof web3 !== 'undefined') {
@@ -58,7 +60,7 @@ class MakerCdp extends Component {
         <div>
             <div style={{width: '400px', display: 'inline-block', border: '1px solid #000'}}>
               <StackedCard key={0} heading="CDP" entries={[
-                ['Something','foo']
+                ['Coming Soon','No idea when']
               ]} />
             </div>      
         </div>

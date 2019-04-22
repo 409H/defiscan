@@ -17,6 +17,11 @@ const SearchArea = styled.div`
 `
 class App extends Component {
 
+  componentDidMount()
+  {
+    document.title = "DefiScan"
+  }
+
   render() {
     return (
       <AppContainer>
@@ -24,12 +29,6 @@ class App extends Component {
           <SearchArea>
             <AddressSearch />
           </SearchArea>
-
-          <ThemeProvider theme={light}>
-            <Panel>
-              <p>DefiScan &copy;</p>
-            </Panel>
-          </ThemeProvider>
       </AppContainer>
     );
   }
