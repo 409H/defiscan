@@ -2,25 +2,35 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { Panel, light } from '@mycrypto/ui';
+import styled, { ThemeProvider } from 'styled-components';
+
+import Header from './components/header';
+import AddressSearch from './components/AddressSearch';
+
+const AppContainer = styled.div`
+  padding: 1em;
+`
+const SearchArea = styled.div`
+  display: block;
+  margin: 0 auto;
+`
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <AppContainer>
+          <Header />
+          <SearchArea>
+            <AddressSearch />
+          </SearchArea>
+
+          <ThemeProvider theme={light}>
+            <Panel>
+              <p>DefiScan &copy;</p>
+            </Panel>
+          </ThemeProvider>
+      </AppContainer>
     );
   }
 }
