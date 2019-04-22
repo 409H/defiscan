@@ -36,7 +36,7 @@ class Header extends Component {
             <MyCryptoLogo src={Logo}></MyCryptoLogo>
             <PoweredBy>MyCrypto</PoweredBy>
 
-            <Slogan>A read-only Defi explorer. Search by 0x address or ENS name - no web3 injection needed</Slogan>
+            <Slogan>A read-only Defi profile explorer. Search by user 0x address or ENS name - no web3 injection needed</Slogan>
         </HeaderContainer>
     );
   }
