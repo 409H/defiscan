@@ -44,7 +44,7 @@ class AddressSearch extends Component {
   async handleSearch(objEvent)
   {
     const strInput = objEvent.target.value;
-    this.setState({search: {address: null, ens: false}})
+    this.setState({search: {address: null, ens: false}, "error": null})
     // Are we searching for a 0x address or via ENS name?
     if(strInput.match(/^(0x)?[a-fA-F0-9]{40}$/, "g") !== null) {
         this.setState({search: {address: strInput, ens: false}})

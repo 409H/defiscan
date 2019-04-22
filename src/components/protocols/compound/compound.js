@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import ImageIcon from '../../ImageIcon';
-
-import { StackedCard, Address, Tooltip, Icon } from '@mycrypto/ui';
-import styled, { ThemeProvider } from 'styled-components';
+import AssetView from './asset-view';
 
 import LogoDai from '../../../images/dai.png'
 import LogoWeth from '../../../images/weth.png'
@@ -33,6 +30,7 @@ const objLookup = {
 };
 
 class AddressSearch extends Component {
+  _isMounted = false;
 
   constructor(args)
   {
@@ -107,6 +105,8 @@ class AddressSearch extends Component {
 
   async componentDidMount()
   {
+    this._isMounted = true;
+
     await this.getSupplyBalances("0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359", "DAI") //Get DAI
     await this.getBorrowBalances("0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359", "DAI") //Get DAI
 
@@ -114,6 +114,10 @@ class AddressSearch extends Component {
     await this.getSupplyBalances("0x1985365e9f78359a9B6AD760e32412f4a445E862", "REP") //Get REP
     await this.getSupplyBalances("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2", "WETH") //Get WETH
     await this.getSupplyBalances("0xe41d2489571d322189246dafa5ebde1f4699f498", "ZRX") //Get ZRX
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   getCurrentState(strKey)
@@ -137,12 +141,17 @@ class AddressSearch extends Component {
     await objContract.methods.supplyBalances(this.props.address, strAssetAddress).call()
       .then(async r => {
 
+        if(this._isMounted === false) {
+          return;
+        }
+
         let objCurrentState = this.getCurrentState(strAssetName);
         objCurrentState.supply = {
           principal: web3.utils.fromWei(r.principal.toString(), "ether"),
           interestIndex: web3.utils.fromWei(r.interestIndex.toString(), "ether"),
           interestAmount: 0
         }
+        objCurrentState.fetched = true;
 
         if(objCurrentState.supply.principal > 0) {
           // Calculate the interest gained
@@ -182,6 +191,10 @@ class AddressSearch extends Component {
     await objContract.methods.borrowBalances(this.props.address, strAssetAddress).call()
     .then(r => {
 
+      if(this._isMounted === false) {
+        return;
+      }
+      
       let objCurrentState = this.getCurrentState(strAssetName);
       objCurrentState.borrow = {
         principal: web3.utils.fromWei(r.principal.toString(), "ether"),
@@ -219,40 +232,55 @@ class AddressSearch extends Component {
     return (
         <div>
             <div style={{width: '400px', display: 'inline-block', border: '1px solid #000', margin: '0.5em', borderRadius: '5px'}}>
-              <StackedCard key={0} heading="DAI" icons={[<ImageIcon src={LogoDai} />]} entries={[
-                ['Staked',this.state.DAI.supply.principal],
-                ['Interest Gained', this.state.DAI.supply.interestAmount],
-                ['Borrowed',this.state.DAI.borrow.principal]]
-              } />
+              <AssetView 
+                heading="DAI"
+                icon={LogoDai}
+                staked={this.state.DAI.supply.principal}
+                interest={this.state.DAI.supply.interestAmount}
+                borrowed={this.state.DAI.borrow.principal}
+                fetched={this.state.DAI.fetched}
+              />
             </div>
             <div style={{width: '400px', display: 'inline-block', border: '1px solid #000', margin: '0.5em', borderRadius: '5px'}}>
-              <StackedCard key={1} heading="WETH" icons={[<ImageIcon src={LogoWeth} />]} entries={[
-                ['Staked',this.state.WETH.supply.principal],
-                ['Interest Gained', this.state.WETH.supply.interestAmount],
-                ['Borrowed',this.state.WETH.borrow.principal]]
-              } />
+              <AssetView 
+                heading="WETH"
+                icon={LogoWeth}
+                staked={this.state.WETH.supply.principal}
+                interest={this.state.WETH.supply.interestAmount}
+                borrowed={this.state.WETH.borrow.principal}
+                fetched={this.state.WETH.fetched}
+              />
+            </div>        
+            <div style={{width: '400px', display: 'inline-block', border: '1px solid #000', margin: '0.5em', borderRadius: '5px'}}>
+              <AssetView 
+                heading="ZRX"
+                icon={LogoZrx}
+                staked={this.state.ZRX.supply.principal}
+                interest={this.state.ZRX.supply.interestAmount}
+                borrowed={this.state.ZRX.borrow.principal}
+                fetched={this.state.ZRX.fetched}
+              />
+            </div>       
+            <div style={{width: '400px', display: 'inline-block', border: '1px solid #000', margin: '0.5em', borderRadius: '5px'}}>
+              <AssetView 
+                heading="REP"
+                icon={LogoRep}
+                staked={this.state.REP.supply.principal}
+                interest={this.state.REP.supply.interestAmount}
+                borrowed={this.state.REP.borrow.principal}
+                fetched={this.state.REP.fetched}
+              />
             </div>
             <div style={{width: '400px', display: 'inline-block', border: '1px solid #000', margin: '0.5em', borderRadius: '5px'}}>
-              <StackedCard key={2} heading="ZRX" icons={[<ImageIcon src={LogoZrx} />]} entries={[
-                ['Staked',this.state.ZRX.supply.principal],
-                ['Interest Gained', this.state.ZRX.supply.interestAmount],
-                ['Borrowed',this.state.ZRX.borrow.principal]]
-              } />
+              <AssetView 
+                heading="BAT"
+                icon={LogoBat}
+                staked={this.state.BAT.supply.principal}
+                interest={this.state.BAT.supply.interestAmount}
+                borrowed={this.state.BAT.borrow.principal}
+                fetched={this.state.BAT.fetched}
+              />
             </div>
-            <div style={{width: '400px', display: 'inline-block', border: '1px solid #000', margin: '0.5em'}}>
-              <StackedCard key={3} heading="REP" icons={[<ImageIcon src={LogoRep} />]} entries={[
-                ['Staked',this.state.REP.supply.principal],
-                ['Interest Gained', this.state.REP.supply.interestAmount],
-                ['Borrowed',this.state.REP.borrow.principal]]
-              } />
-            </div>
-            <div style={{width: '400px', display: 'inline-block', border: '1px solid #000', margin: '0.5em'}}>
-              <StackedCard key={4} heading="BAT" icons={[<ImageIcon src={LogoBat} />]} entries={[
-                ['Staked',this.state.BAT.supply.principal],
-                ['Interest Gained', this.state.BAT.supply.interestAmount],
-                ['Borrowed',this.state.BAT.borrow.principal]]
-              } />
-            </div>                         
         </div>
     );
   }
