@@ -34,6 +34,7 @@ class Uniswap extends Component {
     super(args);
     this.populateRecord = this.populateRecord.bind(this);
 
+    // https://github.com/Uniswap/uniswap-frontend/blob/f8b8cd0ed01f7f4e612a76d8882b723ddfb20f47/src/ducks/addresses.js
     this.state = {
       "DAI": {
         "addresses": {

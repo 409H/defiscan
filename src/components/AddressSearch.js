@@ -57,12 +57,17 @@ class AddressSearch extends Component {
         this.setState({search: {address: null, ens: false}})
     }
   }
+
+  clearInput(objEvent)
+  {
+      objEvent.target.value = "";
+  }
     
   render() {
     return (
         <div>
             <div style={{width: '400px', display: 'inline-block'}}>
-                <Input onClick={e => e.inputEntry = ""} onChange={this.handleSearch} placeholder="Search by address/ENS name"></Input> 
+                <Input onClick={this.clearInput} onPaste={this.handleSearch} onKeyUp={this.handleSearch} placeholder="Search by address/ENS name"></Input> 
                 <Button>Search</Button>
             </div>
             {this.state.error
