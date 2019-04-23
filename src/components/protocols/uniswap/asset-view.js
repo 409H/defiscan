@@ -17,13 +17,15 @@ class AssetView extends Component {
                     <StackedCard key={0} heading={this.props.heading} icons={[<ImageIcon src={this.props.icon} />]} entries={[
                             ['Staked',this.props.staked],
                             ['ETH', this.props.eth],
-                            ['Total Supply',this.props.totalSupply]]
+                            ['Total Supply',"SOON"],  //this.props.totalSupply]
+                            ['Your Share', "SOON%"]]
                         } />
                 :
                     <StackedCard key={0} heading={<img src={LogoLoading} />} icons={[<img src={LogoLoading} />]} entries={[
                         ['Staked', <img src={LogoLoading} />],
                         ['Interest Gained', <img src={LogoLoading} />],
-                        ['Total Supply', <img src={LogoLoading} />]]
+                        ['Total Supply', <img src={LogoLoading} />],
+                        ['Your Share', <img src={LogoLoading} />]]
                     } />
             }
             </div>
