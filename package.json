@@ -4,8 +4,10 @@
   "private": true,
   "homepage": "https://harrydenley.com/defiscan",
   "dependencies": {
+    "@makerdao/dai": "^0.15.1-kovan.2",
     "@mycrypto/ui": "^0.14.0",
     "eth-ens-namehash": "^2.0.8",
+    "ethers": "^4.0.27",
     "ez-ens": "^1.1.1",
     "gh-pages": "^2.0.1",
     "react": "^16.8.6",
