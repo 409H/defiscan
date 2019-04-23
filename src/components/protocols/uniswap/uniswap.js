@@ -212,7 +212,7 @@ class Uniswap extends Component {
 
         objCurrentState.price.EthToToken = await objContract.methods.getEthToTokenInputPrice(100).call();
 
-        objCurrentState.user.balance_in_eth = (BN(objCurrentState.price.EthToToken).dividedBy(100)).multipliedBy(objCurrentState.user.balance).toFixed(this.state[strAssetName].meta.decimals)
+        objCurrentState.user.balance_in_eth = (BN(objCurrentState.user.balance).multipliedBy(100)).dividedBy(objCurrentState.price.EthToToken).toFixed(7);        
 
         switch(strAssetName) {
             case 'DAI' :
