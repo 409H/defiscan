@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import AssetView from '../asset-view';
+import { BigNumber as BN } from 'bignumber.js'
 import styled, { ThemeProvider } from 'styled-components';
 
 import HasProfile from '../../hasProfile'
 
 import LogoSpank from '../../../images/spankBankChainsaw.svg'
+import LogoLoading from '../../../images/ajax-loader.gif'
 import { Identicon, Copyable, Table } from '@mycrypto/ui';
 
 import Web3 from 'web3';
@@ -21,7 +23,7 @@ if (typeof web3 !== 'undefined') {
 const CONTRACT_ADDR = "0x1ecb60873e495ddfa2a13a8f4140e490dd574e6f";
 const CONTRACT_ABI = [{"constant":true,"inputs":[],"name":"currentPeriod","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"voteToClose","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newDelegateKey","type":"address"}],"name":"updateDelegateKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"spankAmount","type":"uint256"},{"name":"stakePeriods","type":"uint256"},{"name":"delegateKey","type":"address"},{"name":"bootyBase","type":"address"}],"name":"stake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"stakerAddress","type":"address"},{"name":"period","type":"uint256"}],"name":"getSpankPoints","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"bootyToken","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxPeriods","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"mintBooty","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"stakerByDelegateKey","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"stakerAddress","type":"address"},{"name":"period","type":"uint256"}],"name":"getVote","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"delegateAddress","type":"address"}],"name":"getStakerFromDelegateKey","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"from","type":"address"},{"name":"amount","type":"uint256"},{"name":"tokenContract","type":"address"},{"name":"extraData","type":"bytes"}],"name":"receiveApproval","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"stakers","outputs":[{"name":"spankStaked","type":"uint256"},{"name":"startingPeriod","type":"uint256"},{"name":"endingPeriod","type":"uint256"},{"name":"delegateKey","type":"address"},{"name":"bootyBase","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"spankToken","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newBootyBase","type":"address"}],"name":"updateBootyBase","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"pointsTable","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"claimPeriod","type":"uint256"}],"name":"claimBooty","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"updatePeriod","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newAddress","type":"address"},{"name":"newDelegateKey","type":"address"},{"name":"newBootyBase","type":"address"},{"name":"spankAmount","type":"uint256"}],"name":"splitStake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"withdrawStake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"isClosed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"stakerAddress","type":"address"},{"name":"period","type":"uint256"}],"name":"getDidClaimBooty","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSpankStaked","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"periodLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"updatedEndingPeriod","type":"uint256"}],"name":"checkIn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"periods","outputs":[{"name":"bootyFees","type":"uint256"},{"name":"totalSpankPoints","type":"uint256"},{"name":"bootyMinted","type":"uint256"},{"name":"mintingComplete","type":"bool"},{"name":"startTime","type":"uint256"},{"name":"endTime","type":"uint256"},{"name":"closingVotes","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"bootyAmount","type":"uint256"}],"name":"sendFees","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_periodLength","type":"uint256"},{"name":"_maxPeriods","type":"uint256"},{"name":"spankAddress","type":"address"},{"name":"initialBootySupply","type":"uint256"},{"name":"bootyTokenName","type":"string"},{"name":"bootyDecimalUnits","type":"uint8"},{"name":"bootySymbol","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"periodLength","type":"uint256"},{"indexed":false,"name":"maxPeriods","type":"uint256"},{"indexed":false,"name":"spankAddress","type":"address"},{"indexed":false,"name":"initialBootySupply","type":"uint256"},{"indexed":false,"name":"bootyTokenName","type":"string"},{"indexed":false,"name":"bootyDecimalUnits","type":"uint8"},{"indexed":false,"name":"bootySymbol","type":"string"}],"name":"SpankBankCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"period","type":"uint256"},{"indexed":false,"name":"spankPoints","type":"uint256"},{"indexed":false,"name":"spankAmount","type":"uint256"},{"indexed":false,"name":"stakePeriods","type":"uint256"},{"indexed":false,"name":"delegateKey","type":"address"},{"indexed":false,"name":"bootyBase","type":"address"}],"name":"StakeEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"sender","type":"address"},{"indexed":false,"name":"bootyAmount","type":"uint256"}],"name":"SendFeesEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"targetBootySupply","type":"uint256"},{"indexed":false,"name":"totalBootySupply","type":"uint256"}],"name":"MintBootyEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"period","type":"uint256"},{"indexed":false,"name":"spankPoints","type":"uint256"},{"indexed":false,"name":"stakerEndingPeriod","type":"uint256"}],"name":"CheckInEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"period","type":"uint256"},{"indexed":false,"name":"bootyOwed","type":"uint256"}],"name":"ClaimBootyEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"totalSpankToWithdraw","type":"uint256"}],"name":"WithdrawStakeEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"newAddress","type":"address"},{"indexed":false,"name":"newDelegateKey","type":"address"},{"indexed":false,"name":"newBootyBase","type":"address"},{"indexed":false,"name":"spankAmount","type":"uint256"}],"name":"SplitStakeEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"period","type":"uint256"}],"name":"VoteToCloseEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"newDelegateKey","type":"address"}],"name":"UpdateDelegateKeyEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"newBootyBase","type":"address"}],"name":"UpdateBootyBaseEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"from","type":"address"},{"indexed":false,"name":"tokenContract","type":"address"}],"name":"ReceiveApprovalEvent","type":"event"}];
 const objContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDR)
-
+const DEFAULT_PERIOD_TO_GET = 1;
 
 const AddressContainer = styled.div`
     display: flex;
@@ -78,12 +80,14 @@ const BoolVal = styled.span`
 
 class SpankChain extends Component {
   _isMounted = false;
+  _blGettingPeriodInBg = false;
 
   constructor(args)
   {
     super(args);
     this.getStakers = this.getStakers.bind(this);
     this.getPeriod = this.getPeriod.bind(this);
+    this.getMorePeriods = this.getMorePeriods.bind(this);
     this.getCurrentState = this.getCurrentState.bind(this);
 
     this.state = {
@@ -96,13 +100,14 @@ class SpankChain extends Component {
             "spankStaked": 0,
             "endingPeriod": 0,
             "startingPeriod": 0,
-            "fetched": false
+            "fetched": false,
+            "stakeAddress": null
         },
         "PERIOD": {
             "currentPeriod": 0,
-            "maxPeriods": 0,
             "claimedCurrentPeriod": false,
             "votedCurrentPeriod": false,
+            "getMorePeriodInBg": false,
             "CLAIMED": [
                 // An array holding period and bool for claimed or not
             ],
@@ -140,7 +145,8 @@ class SpankChain extends Component {
         let objStake = this.getCurrentState("STAKE");
         objStake.bootyBase = r.bootyBase;
         objStake.delegateKey = r.delegateKey;
-        objStake.spankStaked = r.spankStaked;
+        objStake.stakeAddress = await objContract.methods.getStakerFromDelegateKey(objStake.delegateKey);
+        objStake.spankStaked = BN(r.spankStaked).dividedBy(10**18).toFixed(7);
         objStake.endingPeriod = r.endingPeriod;
         objStake.startingPeriod = r.startingPeriod;
         objStake.fetched = true
@@ -171,36 +177,18 @@ class SpankChain extends Component {
           return;
         }
 
-        let objPeriod = this.getCurrentState("PERIOD");
-
         if(this.state._USER.hasProfile === false) {
+            let objPeriod = this.getCurrentState("PERIOD");
             objPeriod.fetched = true;
             this.setState({
                 "PERIOD": objPeriod
             })
             return;
         }
-
+        
+        let objPeriod = this.getCurrentState("PERIOD");
         objPeriod.currentPeriod = r;
-        objPeriod.maxPeriods = await objContract.methods.maxPeriods().call();
-
-        // Get the vote and claim for each period up to their ending period
-        let arrVoteAndClaims = [];
-        for(var intPeriod = 1; intPeriod <= this.state.STAKE.endingPeriod; intPeriod++) {
-            let objVoteAndClaim = {
-                "period": intPeriod,
-                "voted": await objContract.methods.getVote(this.props.address, intPeriod).call(),
-                "claimed": await objContract.methods.getDidClaimBooty(this.props.address, intPeriod).call(),
-            };
-
-            if(intPeriod === objPeriod.currentPeriod) {
-                objPeriod.claimedCurrentPeriod = objVoteAndClaim.claimed;
-                objPeriod.votedCurrentPeriod = objVoteAndClaim.voted;
-            }
-
-            arrVoteAndClaims.push(objVoteAndClaim);
-        }
-        objPeriod.CLAIMED = arrVoteAndClaims;
+        objPeriod.getMorePeriodInBg = true;
         objPeriod.fetched = true;
 
         this.setState({
@@ -210,7 +198,43 @@ class SpankChain extends Component {
       }).catch(e => {
         console.log(e.message);
       });
-  }  
+  }
+  
+  async getMorePeriods(intStartingPeriod = this.state.STAKE.startingPeriod, intEndPeriod = this.state.STAKE.endingPeriod)
+  {
+    // Get the vote and claim for each period up to their ending period
+    intStartingPeriod = parseInt(intStartingPeriod);
+    intEndPeriod = parseInt(intEndPeriod);
+
+    const arrPeriods = Array((intEndPeriod-intStartingPeriod)+1).fill().map((_, i) => i + intStartingPeriod);
+    let objPeriod = this.getCurrentState("PERIOD");
+    let arrVoteAndClaims = objPeriod.CLAIMED;
+    let blDefaultToNo = false;
+
+    arrPeriods.forEach(async (intPeriod) => {
+
+        if(parseInt(intPeriod) > parseInt(objPeriod.currentPeriod)) {
+            blDefaultToNo = true;
+        } 
+
+        let objVoteAndClaim = {
+            "period": intPeriod,
+            "voted": blDefaultToNo ? false : await objContract.methods.getVote(this.props.address, intPeriod).call(),
+            "claimed": blDefaultToNo ? false: await objContract.methods.getDidClaimBooty(this.props.address, intPeriod).call(),
+        };
+
+        if(intPeriod === objPeriod.currentPeriod) {
+            objPeriod.claimedCurrentPeriod = objVoteAndClaim.claimed;
+            objPeriod.votedCurrentPeriod = objVoteAndClaim.voted;
+        }
+
+        arrVoteAndClaims.push(objVoteAndClaim);
+        objPeriod.CLAIMED = arrVoteAndClaims;
+        this.setState({
+            "PERIOD": objPeriod
+        })
+    })
+  }
 
   formatAddress(strAddress)
   {
@@ -222,13 +246,13 @@ class SpankChain extends Component {
       )
   }
 
-  formatCurrentPeriod(intCurrentPeriod, intMaxPeriod, intEndingPeriod)
+  formatCurrentPeriod(intCurrentPeriod, intEndingPeriod)
   {
       return(
           <div>
-              {intCurrentPeriod} / {intMaxPeriod}
+              {intCurrentPeriod}
               {intEndingPeriod > 0
-                ? <div style={{ fontSize: "10pt", display: "inline-block", fontStyle: "italic", color: "#b5b5b5", marginLeft: "1em" }}>Your stake {intEndingPeriod < intCurrentPeriod ? "ended" : "ends"} at period {intEndingPeriod}</div>
+                ? <div style={{ fontSize: "10pt", display: "inline-block", fontStyle: "italic", color: "#b5b5b5", marginLeft: "1em" }}>Your stake {intEndingPeriod < intCurrentPeriod ? "ends" : "ended"} at period {intEndingPeriod}</div>
                 : ``
               }
           </div>
@@ -237,33 +261,58 @@ class SpankChain extends Component {
 
   formatVoteAndClaim(arrVoteAndClaim)
   {
-      if(arrVoteAndClaim.length == 0) {
+      if(this.state.STAKE.fetched && this.state.PERIOD.getMorePeriodInBg === false) {
         return(
             <NoParticipationContainer>No participation from {this.formatAddress(this.props.address)}</NoParticipationContainer>
         )
-      }
-    
-      let arrTableBody = [];
-      arrVoteAndClaim.forEach(a => {
-          arrTableBody.push([
-              a.period,
-              this.formatBoolean(a.voted),
-              this.formatBoolean(a.claimed)
-          ])
-      });
+      } else {
+        let arrTableBody = [];
 
-      return(
-          <VoteAndClaimTable>
-                <Table 
-                    head={[
-                        'PERIOD',
-                        'VOTED',
-                        'CLAIMED'
-                    ]}
-                    body={arrTableBody}
-                />
-          </VoteAndClaimTable>
-      )
+        arrVoteAndClaim.sort((a, b) => {
+            if(a.period < b.period) {
+                return -1;
+            }
+            if(a.period > b.period) {
+                return 1;
+            }
+            return 0;
+        })
+
+        arrVoteAndClaim.forEach(a => {
+            arrTableBody.push([
+                a.period,
+                this.formatBoolean(a.voted),
+                this.formatBoolean(a.claimed)
+            ])
+        });
+
+        let blShowFetchingMore = false;
+        if(this._blGettingPeriodInBg === false
+            && this.state.PERIOD.getMorePeriodInBg 
+        ) {
+            this._blGettingPeriodInBg = true;
+            blShowFetchingMore = true;
+            this.getMorePeriods();
+        }
+
+        return(
+            <VoteAndClaimTable>
+                    <Table 
+                        head={[
+                            'PERIOD',
+                            'VOTED',
+                            'CLAIMED'
+                        ]}
+                        body={arrTableBody}
+                    />
+                    {
+                        blShowFetchingMore
+                            ? `Fetching ${(this.state.STAKE.endingPeriod - this.state.STAKE.startingPeriod)-3} more period data`
+                            : ``
+                    }
+            </VoteAndClaimTable>
+        )
+      }
   }
 
   formatBoolean(blValue) {
@@ -282,7 +331,8 @@ class SpankChain extends Component {
             rows={[
                 ["STAKED", this.state.STAKE.spankStaked],
                 ["BOOTY BASE", this.formatAddress(this.state.STAKE.bootyBase)],
-                ["DELEGATE KEY", this.formatAddress(this.state.STAKE.delegateKey)]
+                ["DELEGATE KEY", this.formatAddress(this.state.STAKE.delegateKey)],
+                ["PERIOD STARTED", this.state.STAKE.startingPeriod]
             ]}
             fetched={this.state.STAKE.fetched}
           />
@@ -291,7 +341,7 @@ class SpankChain extends Component {
             heading="PERIOD VIEW"
             icon={LogoSpank}
             rows={[
-                ["PERIOD", this.formatCurrentPeriod(this.state.PERIOD.currentPeriod, this.state.PERIOD.maxPeriods, this.state.STAKE.endingPeriod)],
+                ["CURRENT PERIOD", this.formatCurrentPeriod(this.state.PERIOD.currentPeriod, this.state.STAKE.endingPeriod)],
                 ["CLAIMED CURRENT PERIOD", this.formatBoolean(this.state.PERIOD.claimedCurrentPeriod)],
                 ["VOTED CURRENT PERIOD", this.formatBoolean(this.state.PERIOD.votedCurrentPeriod)]
             ]}
