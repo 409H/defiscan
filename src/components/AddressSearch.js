@@ -19,6 +19,15 @@ if (typeof web3 !== 'undefined') {
   //web3 = new Web3(new Web3.providers.HttpProvider("https://freely-central-lark.quiknode.io/9fe4c4a0-2ea2-4ac1-ab64-f92990cd2914/118-xxADc8hKSSB9joCb-g==/"));
 }  
 
+const Container = styled.div`
+    width: 100%;
+`;
+
+const SearchContainer = styled.div`
+    display: inline-block;
+    width: inherit;
+`;
+
 const Error = styled.div`
     text-align: center;
     font-weight: 600;
@@ -65,11 +74,11 @@ class AddressSearch extends Component {
     
   render() {
     return (
-        <div>
-            <div style={{width: '400px', display: 'inline-block'}}>
+        <Container>
+            <SearchContainer>
                 <Input onClick={this.clearInput} onPaste={this.handleSearch} onKeyUp={this.handleSearch} placeholder="Search by address/ENS name"></Input> 
                 <Button>Search</Button>
-            </div>
+            </SearchContainer>
             {this.state.error
                 ?
                     <Error>
@@ -92,7 +101,7 @@ class AddressSearch extends Component {
                             ``
                 
             }
-        </div>
+        </Container>
     );
   }
 }
