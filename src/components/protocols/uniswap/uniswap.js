@@ -53,7 +53,8 @@ class Uniswap extends Component {
         }, 
         "user": {
           "balance": 0,
-          "balance_in_eth": 0
+          "balance_in_eth": 0,
+          "share_perc": 0
         },
         "exchange": {
             "totalSupply": 0
@@ -72,7 +73,8 @@ class Uniswap extends Component {
         }, 
         "user": {
             "balance": 0,
-            "balance_in_eth": 0
+            "balance_in_eth": 0,
+            "share_perc": 0
         },
         "exchange": {
             "totalSupply": 0
@@ -91,7 +93,8 @@ class Uniswap extends Component {
         }, 
         "user": {
           "balance": 0,
-          "balance_in_eth": 0
+          "balance_in_eth": 0,
+          "share_perc": 0
         },
         "exchange": {
             "totalSupply": 0
@@ -110,7 +113,8 @@ class Uniswap extends Component {
         }, 
         "user": {
           "balance": 0,
-          "balance_in_eth": 0
+          "balance_in_eth": 0,
+          "share_perc": 0
         },
         "exchange": {
             "totalSupply": 0
@@ -129,7 +133,8 @@ class Uniswap extends Component {
         }, 
         "user": {
           "balance": 0,
-          "balance_in_eth": 0
+          "balance_in_eth": 0,
+          "share_perc": 0
         },
         "exchange": {
             "totalSupply": 0
@@ -148,7 +153,8 @@ class Uniswap extends Component {
         }, 
         "user": {
           "balance": 0,
-          "balance_in_eth": 0
+          "balance_in_eth": 0,
+          "share_perc": 0
         },
         "exchange": {
             "totalSupply": 0
@@ -167,7 +173,8 @@ class Uniswap extends Component {
         }, 
         "user": {
           "balance": 0,
-          "balance_in_eth": 0
+          "balance_in_eth": 0,
+          "share_perc": 0
         },
         "exchange": {
             "totalSupply": 0
@@ -218,6 +225,11 @@ class Uniswap extends Component {
         objCurrentState.price.EthToToken = await objContract.methods.getEthToTokenInputPrice(100).call();
 
         objCurrentState.user.balance_in_eth = (BN(objCurrentState.user.balance).multipliedBy(100)).dividedBy(objCurrentState.price.EthToToken).toFixed(7);        
+
+        const totalSupply = await objContract.methods.totalSupply().call();
+        objCurrentState.exchange.totalSupply = BN(totalSupply).dividedBy(10 ** this.state[strAssetName].meta.decimals).toFixed(this.state[strAssetName].meta.decimals);
+
+        objCurrentState.user.share_perc = parseFloat((objCurrentState.user.balance / objCurrentState.exchange.totalSupply) * 100).toFixed(4);
 
         // If pooled > 0
         let objUser = this.getCurrentState("_USER");
@@ -283,7 +295,7 @@ class Uniswap extends Component {
               ["POOLED", this.state.DAI.user.balance],
               ["ETH VALUE", this.state.DAI.user.balance_in_eth],
               ["TOTAL SUPPLY", this.state.DAI.exchange.totalSupply],
-              ["YOUR SHARE", "SOON%"]
+              ["YOUR SHARE", this.state.DAI.user.share_perc + "%"]
             ]}
             fetched={this.state.DAI.fetched}
           />
@@ -294,7 +306,7 @@ class Uniswap extends Component {
               ["POOLED", this.state.MKR.user.balance],
               ["ETH VALUE", this.state.MKR.user.balance_in_eth],
               ["TOTAL SUPPLY", this.state.MKR.exchange.totalSupply],
-              ["YOUR SHARE", "SOON%"]
+              ["YOUR SHARE", this.state.MKR.user.share_perc + "%"]
             ]}
             fetched={this.state.MKR.fetched}
           />
@@ -305,7 +317,7 @@ class Uniswap extends Component {
               ["POOLED", this.state.SPANK.user.balance],
               ["ETH VALUE", this.state.SPANK.user.balance_in_eth],
               ["TOTAL SUPPLY", this.state.SPANK.exchange.totalSupply],
-              ["YOUR SHARE", "SOON%"]
+              ["YOUR SHARE", this.state.SPANK.user.share_perc + "%"]
             ]}
             fetched={this.state.SPANK.fetched}
           />
@@ -316,7 +328,7 @@ class Uniswap extends Component {
               ["POOLED", this.state.ANT.user.balance],
               ["ETH VALUE", this.state.ANT.user.balance_in_eth],
               ["TOTAL SUPPLY", this.state.ANT.exchange.totalSupply],
-              ["YOUR SHARE", "SOON%"]
+              ["YOUR SHARE", this.state.ANT.user.share_perc + "%"]
             ]}
             fetched={this.state.ANT.fetched}
           />
@@ -327,7 +339,7 @@ class Uniswap extends Component {
               ["POOLED", this.state.ZRX.user.balance],
               ["ETH VALUE", this.state.ZRX.user.balance_in_eth],
               ["TOTAL SUPPLY", this.state.ZRX.exchange.totalSupply],
-              ["YOUR SHARE", "SOON%"]
+              ["YOUR SHARE", this.state.ZRX.user.share_perc + "%"]
             ]}
             fetched={this.state.ZRX.fetched}
           />
@@ -338,7 +350,7 @@ class Uniswap extends Component {
               ["POOLED", this.state.BAT.user.balance],
               ["ETH VALUE", this.state.BAT.user.balance_in_eth],
               ["TOTAL SUPPLY", this.state.BAT.exchange.totalSupply],
-              ["YOUR SHARE", "SOON%"]
+              ["YOUR SHARE", this.state.BAT.user.share_perc + "%"]
             ]}
             fetched={this.state.BAT.fetched}
           />                       
