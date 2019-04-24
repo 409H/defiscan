@@ -4,6 +4,7 @@ import { BigNumber as BN } from 'bignumber.js'
 import styled, { ThemeProvider } from 'styled-components';
 
 import HasProfile from '../../hasProfile'
+import Currency from '../../currency'
 
 import LogoSpank from '../../../images/spankBankChainsaw.svg'
 import LogoLoading from '../../../images/ajax-loader.gif'
@@ -24,6 +25,13 @@ const CONTRACT_ADDR = "0x1ecb60873e495ddfa2a13a8f4140e490dd574e6f";
 const CONTRACT_ABI = [{"constant":true,"inputs":[],"name":"currentPeriod","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"voteToClose","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newDelegateKey","type":"address"}],"name":"updateDelegateKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"spankAmount","type":"uint256"},{"name":"stakePeriods","type":"uint256"},{"name":"delegateKey","type":"address"},{"name":"bootyBase","type":"address"}],"name":"stake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"stakerAddress","type":"address"},{"name":"period","type":"uint256"}],"name":"getSpankPoints","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"bootyToken","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxPeriods","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"mintBooty","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"stakerByDelegateKey","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"stakerAddress","type":"address"},{"name":"period","type":"uint256"}],"name":"getVote","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"delegateAddress","type":"address"}],"name":"getStakerFromDelegateKey","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"from","type":"address"},{"name":"amount","type":"uint256"},{"name":"tokenContract","type":"address"},{"name":"extraData","type":"bytes"}],"name":"receiveApproval","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"stakers","outputs":[{"name":"spankStaked","type":"uint256"},{"name":"startingPeriod","type":"uint256"},{"name":"endingPeriod","type":"uint256"},{"name":"delegateKey","type":"address"},{"name":"bootyBase","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"spankToken","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newBootyBase","type":"address"}],"name":"updateBootyBase","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"pointsTable","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"claimPeriod","type":"uint256"}],"name":"claimBooty","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"updatePeriod","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newAddress","type":"address"},{"name":"newDelegateKey","type":"address"},{"name":"newBootyBase","type":"address"},{"name":"spankAmount","type":"uint256"}],"name":"splitStake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"withdrawStake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"isClosed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"stakerAddress","type":"address"},{"name":"period","type":"uint256"}],"name":"getDidClaimBooty","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSpankStaked","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"periodLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"updatedEndingPeriod","type":"uint256"}],"name":"checkIn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"periods","outputs":[{"name":"bootyFees","type":"uint256"},{"name":"totalSpankPoints","type":"uint256"},{"name":"bootyMinted","type":"uint256"},{"name":"mintingComplete","type":"bool"},{"name":"startTime","type":"uint256"},{"name":"endTime","type":"uint256"},{"name":"closingVotes","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"bootyAmount","type":"uint256"}],"name":"sendFees","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_periodLength","type":"uint256"},{"name":"_maxPeriods","type":"uint256"},{"name":"spankAddress","type":"address"},{"name":"initialBootySupply","type":"uint256"},{"name":"bootyTokenName","type":"string"},{"name":"bootyDecimalUnits","type":"uint8"},{"name":"bootySymbol","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"periodLength","type":"uint256"},{"indexed":false,"name":"maxPeriods","type":"uint256"},{"indexed":false,"name":"spankAddress","type":"address"},{"indexed":false,"name":"initialBootySupply","type":"uint256"},{"indexed":false,"name":"bootyTokenName","type":"string"},{"indexed":false,"name":"bootyDecimalUnits","type":"uint8"},{"indexed":false,"name":"bootySymbol","type":"string"}],"name":"SpankBankCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"period","type":"uint256"},{"indexed":false,"name":"spankPoints","type":"uint256"},{"indexed":false,"name":"spankAmount","type":"uint256"},{"indexed":false,"name":"stakePeriods","type":"uint256"},{"indexed":false,"name":"delegateKey","type":"address"},{"indexed":false,"name":"bootyBase","type":"address"}],"name":"StakeEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"sender","type":"address"},{"indexed":false,"name":"bootyAmount","type":"uint256"}],"name":"SendFeesEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"targetBootySupply","type":"uint256"},{"indexed":false,"name":"totalBootySupply","type":"uint256"}],"name":"MintBootyEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"period","type":"uint256"},{"indexed":false,"name":"spankPoints","type":"uint256"},{"indexed":false,"name":"stakerEndingPeriod","type":"uint256"}],"name":"CheckInEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"period","type":"uint256"},{"indexed":false,"name":"bootyOwed","type":"uint256"}],"name":"ClaimBootyEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"totalSpankToWithdraw","type":"uint256"}],"name":"WithdrawStakeEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"newAddress","type":"address"},{"indexed":false,"name":"newDelegateKey","type":"address"},{"indexed":false,"name":"newBootyBase","type":"address"},{"indexed":false,"name":"spankAmount","type":"uint256"}],"name":"SplitStakeEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"period","type":"uint256"}],"name":"VoteToCloseEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"newDelegateKey","type":"address"}],"name":"UpdateDelegateKeyEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"staker","type":"address"},{"indexed":false,"name":"newBootyBase","type":"address"}],"name":"UpdateBootyBaseEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"from","type":"address"},{"indexed":false,"name":"tokenContract","type":"address"}],"name":"ReceiveApprovalEvent","type":"event"}];
 const objContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDR)
 const DEFAULT_PERIOD_TO_GET = 1;
+
+const SubText = styled.div`
+    display: inline-block;
+    font-size: 10pt;
+    margin-left: 0.5em;
+    ${props => props.isError ? "color: #ff9898;" : ""}
+`
 
 const AddressContainer = styled.div`
     display: flex;
@@ -108,6 +116,8 @@ class SpankChain extends Component {
             "claimedCurrentPeriod": false,
             "votedCurrentPeriod": false,
             "getMorePeriodInBg": false,
+            "startTime": 0,
+            "endTime": 0,
             "CLAIMED": [
                 // An array holding period and bool for claimed or not
             ],
@@ -195,9 +205,42 @@ class SpankChain extends Component {
             "PERIOD": objPeriod
         })
 
+        await this.getPeriodDetails(r);
+
       }).catch(e => {
         console.log(e.message);
       });
+  }
+
+  async getPeriodDetails(intPeriod)
+  {
+    await objContract.methods.periods(intPeriod).call()
+    .then(async r => {
+
+      if(this._isMounted === false) {
+        return;
+      }
+
+      if(this.state._USER.hasProfile === false) {
+          let objPeriod = this.getCurrentState("PERIOD");
+          objPeriod.fetched = true;
+          this.setState({
+              "PERIOD": objPeriod
+          })
+          return;
+      }
+      
+      let objPeriod = this.getCurrentState("PERIOD");
+      objPeriod.startTime = r.startTime;
+      objPeriod.endTime = r.endTime;
+
+      this.setState({
+          "PERIOD": objPeriod
+      })
+
+    }).catch(e => {
+      console.log(e.message);
+    });
   }
   
   async getMorePeriods(intStartingPeriod = this.state.STAKE.startingPeriod, intEndPeriod = this.state.STAKE.endingPeriod)
@@ -243,19 +286,6 @@ class SpankChain extends Component {
               <Identicon address={strAddress} />
               <Copyable text={strAddress} truncate={e => [e.slice(0, 5), e.slice(e.length-3, e.length)].join("...")}/>
           </AddressContainer>
-      )
-  }
-
-  formatCurrentPeriod(intCurrentPeriod, intEndingPeriod)
-  {
-      return(
-          <div>
-              {intCurrentPeriod}
-              {intEndingPeriod > 0
-                ? <div style={{ fontSize: "10pt", display: "inline-block", fontStyle: "italic", color: "#b5b5b5", marginLeft: "1em" }}>Your stake {intEndingPeriod < intCurrentPeriod ? "ends" : "ended"} at period {intEndingPeriod}</div>
-                : ``
-              }
-          </div>
       )
   }
 
@@ -319,6 +349,31 @@ class SpankChain extends Component {
       return blValue ? <BoolVal bool={true}>YES</BoolVal>: <BoolVal bool={false}>NO</BoolVal>;
   }
 
+  formatTimestamp(intTimestamp) {
+      const objDate = new Date(intTimestamp*1000);
+      return(
+          <span>
+              {objDate.toDateString()}
+          </span>
+      )
+  }
+
+  formatEndPeriod() {
+    return(
+        <span>
+            {this.state.STAKE.endingPeriod}
+
+            {
+                parseInt(this.state.STAKE.endingPeriod) < parseInt(this.state.PERIOD.currentPeriod)
+                    ?
+                        <SubText isError={true}>STAKING ENDED</SubText>
+                    :
+                        ``
+            }
+        </span>
+    )
+  }
+
   render() {
     return (
         <div>
@@ -329,7 +384,7 @@ class SpankChain extends Component {
             heading="STAKER PROFILE"
             icon={LogoSpank}
             rows={[
-                ["STAKED", this.state.STAKE.spankStaked],
+                ["STAKED", <Currency value={this.state.STAKE.spankStaked} symbol="SPANK" />],
                 ["BOOTY BASE", this.formatAddress(this.state.STAKE.bootyBase)],
                 ["DELEGATE KEY", this.formatAddress(this.state.STAKE.delegateKey)],
                 ["PERIOD STARTED", this.state.STAKE.startingPeriod]
@@ -341,9 +396,10 @@ class SpankChain extends Component {
             heading="PERIOD VIEW"
             icon={LogoSpank}
             rows={[
-                ["CURRENT PERIOD", this.formatCurrentPeriod(this.state.PERIOD.currentPeriod, this.state.STAKE.endingPeriod)],
-                ["CLAIMED CURRENT PERIOD", this.formatBoolean(this.state.PERIOD.claimedCurrentPeriod)],
-                ["VOTED CURRENT PERIOD", this.formatBoolean(this.state.PERIOD.votedCurrentPeriod)]
+                ["CURRENT PERIOD", this.state.PERIOD.currentPeriod],
+                ["STAKE END PERIOD", this.formatEndPeriod()],
+                ["START TIME", this.formatTimestamp(this.state.PERIOD.startTime)],
+                ["END TIME", this.formatTimestamp(this.state.PERIOD.endTime)]
             ]}
             fetched={this.state.PERIOD.fetched}
           />

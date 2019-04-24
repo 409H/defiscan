@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import AssetView from '../asset-view';
 import { BigNumber as BN } from 'bignumber.js'
+import styled, { ThemeProvider } from 'styled-components';
 
 import HasProfile from '../../hasProfile'
+import Currency from '../../currency'
 
 import LogoDai from '../../../images/dai.png'
 import LogoMkr from '../../../images/maker.png'
@@ -21,6 +23,13 @@ if (typeof web3 !== 'undefined') {
   web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/nWQTOIHYhOavIVKVvNah")); 
   //web3 = new Web3(new Web3.providers.HttpProvider("https://freely-central-lark.quiknode.io/9fe4c4a0-2ea2-4ac1-ab64-f92990cd2914/118-xxADc8hKSSB9joCb-g==/"));
 }  
+
+const SubText = styled.div`
+    display: inline-block;
+    font-size: 10pt;
+    margin-left: 0.5em;
+    ${props => props.isError ? "color: #ff9898;" : ""}
+`
 
 const CONTRACT_ADDR = "0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95";
 const CONTRACT_FACTORY_ABI = 
@@ -288,13 +297,13 @@ class Uniswap extends Component {
 
           <HasProfile profile="Uniswap" bool={this.state._USER.hasProfile} />
 
-          <AssetView 
+          <AssetView
             heading="DAI"
             icon={LogoDai}
             rows={[
-              ["POOLED", this.state.DAI.user.balance],
-              ["ETH VALUE", this.state.DAI.user.balance_in_eth],
-              ["TOTAL SUPPLY", this.state.DAI.exchange.totalSupply],
+              ["POOLED", <Currency value={this.state.DAI.user.balance} symbol="DAI" />],
+              ["ETH VALUE", <Currency value={this.state.DAI.user.balance_in_eth} symbol="ETH" />],
+              ["TOTAL SUPPLY", <Currency value={this.state.DAI.exchange.totalSupply} symbol="DAI" />],
               ["YOUR SHARE", this.state.DAI.user.share_perc + "%"]
             ]}
             fetched={this.state.DAI.fetched}
@@ -303,9 +312,9 @@ class Uniswap extends Component {
             heading="MKR"
             icon={LogoMkr}
             rows={[
-              ["POOLED", this.state.MKR.user.balance],
-              ["ETH VALUE", this.state.MKR.user.balance_in_eth],
-              ["TOTAL SUPPLY", this.state.MKR.exchange.totalSupply],
+              ["POOLED", <Currency value={this.state.MKR.user.balance} symbol="MKR" />],
+              ["ETH VALUE", <Currency value={this.state.MKR.user.balance_in_eth} symbol="ETH" />],
+              ["TOTAL SUPPLY", <Currency value={this.state.MKR.exchange.totalSupply} symbol="MKR" />],
               ["YOUR SHARE", this.state.MKR.user.share_perc + "%"]
             ]}
             fetched={this.state.MKR.fetched}
@@ -314,9 +323,9 @@ class Uniswap extends Component {
             heading="SPANK"
             icon={LogoSpank}
             rows={[
-              ["POOLED", this.state.SPANK.user.balance],
-              ["ETH VALUE", this.state.SPANK.user.balance_in_eth],
-              ["TOTAL SUPPLY", this.state.SPANK.exchange.totalSupply],
+              ["POOLED", <Currency value={this.state.SPANK.user.balance} symbol="SPANK" />],
+              ["ETH VALUE", <Currency value={this.state.SPANK.user.balance_in_eth} symbol="ETH" />],
+              ["TOTAL SUPPLY", <Currency value={this.state.SPANK.exchange.totalSupply} symbol="SPANK" />],
               ["YOUR SHARE", this.state.SPANK.user.share_perc + "%"]
             ]}
             fetched={this.state.SPANK.fetched}
@@ -325,9 +334,9 @@ class Uniswap extends Component {
             heading="ANT"
             icon={LogoAnt}
             rows={[
-              ["POOLED", this.state.ANT.user.balance],
-              ["ETH VALUE", this.state.ANT.user.balance_in_eth],
-              ["TOTAL SUPPLY", this.state.ANT.exchange.totalSupply],
+              ["POOLED", <Currency value={this.state.ANT.user.balance} symbol="ANT" />],
+              ["ETH VALUE", <Currency value={this.state.ANT.user.balance_in_eth} symbol="ETH" />],
+              ["TOTAL SUPPLY", <Currency value={this.state.ANT.exchange.totalSupply} symbol="ANT" />],
               ["YOUR SHARE", this.state.ANT.user.share_perc + "%"]
             ]}
             fetched={this.state.ANT.fetched}
@@ -336,9 +345,9 @@ class Uniswap extends Component {
             heading="ZRX"
             icon={LogoZrx}
             rows={[
-              ["POOLED", this.state.ZRX.user.balance],
-              ["ETH VALUE", this.state.ZRX.user.balance_in_eth],
-              ["TOTAL SUPPLY", this.state.ZRX.exchange.totalSupply],
+              ["POOLED", <Currency value={this.state.ZRX.user.balance} symbol="ZRX" />],
+              ["ETH VALUE", <Currency value={this.state.ZRX.user.balance_in_eth} symbol="ETH" />],
+              ["TOTAL SUPPLY", <Currency value={this.state.ZRX.exchange.totalSupply} symbol="ZRX" />],
               ["YOUR SHARE", this.state.ZRX.user.share_perc + "%"]
             ]}
             fetched={this.state.ZRX.fetched}
@@ -347,9 +356,9 @@ class Uniswap extends Component {
             heading="BAT"
             icon={LogoBat}
             rows={[
-              ["POOLED", this.state.BAT.user.balance],
-              ["ETH VALUE", this.state.BAT.user.balance_in_eth],
-              ["TOTAL SUPPLY", this.state.BAT.exchange.totalSupply],
+              ["POOLED", <Currency value={this.state.BAT.user.balance} symbol="BAT" />],
+              ["ETH VALUE", <Currency value={this.state.BAT.user.balance_in_eth} symbol="ETH" />],
+              ["TOTAL SUPPLY", <Currency value={this.state.BAT.exchange.totalSupply} symbol="BAT" />],
               ["YOUR SHARE", this.state.BAT.user.share_perc + "%"]
             ]}
             fetched={this.state.BAT.fetched}

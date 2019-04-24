@@ -3,6 +3,7 @@ import AssetView from '../asset-view';
 import styled, { ThemeProvider } from 'styled-components';
 
 import HasProfile from '../../hasProfile'
+import Currency from '../../currency'
 
 import LogoDai from '../../../images/dai.png'
 import LogoWeth from '../../../images/weth.png'
@@ -272,9 +273,9 @@ class AddressSearch extends Component {
             heading="DAI"
             icon={LogoDai}
             rows={[
-              ["STAKED", this.state.DAI.supply.principal],
-              ["INTEREST GAINED", this.state.DAI.supply.interestAmount],
-              ["BORROWED", this.state.DAI.borrow.principal]
+              ["STAKED", <Currency value={this.state.DAI.supply.principal} symbol="DAI" />],
+              ["INTEREST GAINED", <Currency value={this.state.DAI.supply.interestAmount} symbol="DAI" />],
+              ["BORROWED", <Currency value={this.state.DAI.borrow.principal} symbol="DAI" />],
             ]}
             fetched={this.state.DAI.fetched}
           />
@@ -282,9 +283,9 @@ class AddressSearch extends Component {
             heading="WETH"
             icon={LogoWeth}
             rows={[
-              ["STAKED", this.state.WETH.supply.principal],
-              ["INTEREST GAINED", this.state.WETH.supply.interestAmount],
-              ["BORROWED", this.state.WETH.borrow.principal]
+              ["STAKED", <Currency value={this.state.WETH.supply.principal} symbol="WETH" />],
+              ["INTEREST GAINED", <Currency value={this.state.WETH.supply.interestAmount} symbol="WETH" />],
+              ["BORROWED", <Currency value={this.state.WETH.borrow.principal} symbol="WETH" />],
             ]}
             fetched={this.state.WETH.fetched}
           />
@@ -292,9 +293,9 @@ class AddressSearch extends Component {
             heading="ZRX"
             icon={LogoZrx}
             rows={[
-              ["STAKED", this.state.ZRX.supply.principal],
-              ["INTEREST GAINED", this.state.ZRX.supply.interestAmount],
-              ["BORROWED", this.state.ZRX.borrow.principal]
+              ["STAKED", <Currency value={this.state.ZRX.supply.principal} symbol="ZRX" />],
+              ["INTEREST GAINED", <Currency value={this.state.ZRX.supply.interestAmount} symbol="ZRX" />],
+              ["BORROWED", <Currency value={this.state.ZRX.borrow.principal} symbol="ZRX" />],
             ]}
             fetched={this.state.ZRX.fetched}
           />
@@ -302,9 +303,9 @@ class AddressSearch extends Component {
             heading="REP"
             icon={LogoRep}
             rows={[
-              ["STAKED", this.state.REP.supply.principal],
-              ["INTEREST GAINED", this.state.REP.supply.interestAmount],
-              ["BORROWED", this.state.REP.borrow.principal]
+              ["STAKED", <Currency value={this.state.REP.supply.principal} symbol="REP" />],
+              ["INTEREST GAINED", <Currency value={this.state.REP.supply.interestAmount} symbol="REP" />],
+              ["BORROWED", <Currency value={this.state.REP.borrow.principal} symbol="REP" />],
             ]}
             fetched={this.state.REP.fetched}
           />
@@ -312,9 +313,9 @@ class AddressSearch extends Component {
             heading="BAT"
             icon={LogoBat}
             rows={[
-              ["STAKED", this.state.BAT.supply.principal],
-              ["INTEREST GAINED", this.state.BAT.supply.interestAmount],
-              ["BORROWED", this.state.BAT.borrow.principal]
+              ["STAKED", <Currency value={this.state.BAT.supply.principal} symbol="BAT" />],
+              ["INTEREST GAINED", <Currency value={this.state.BAT.supply.interestAmount} symbol="BAT" />],
+              ["BORROWED", <Currency value={this.state.BAT.borrow.principal} symbol="BAT" />],
             ]}
             fetched={this.state.BAT.fetched}
           />
