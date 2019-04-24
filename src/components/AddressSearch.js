@@ -91,9 +91,9 @@ class AddressSearch extends Component {
                                 <Heading as="h4">Defi Profile for 
                                 {this.state.search.ens 
                                     ? 
-                                        <Address title={this.state.search.ens_name} address={this.state.search.address} />
+                                        <Address title={this.state.search.ens_name} address={this.state.search.address} truncate={e => [e.slice(0, 5), e.slice(e.length-3, e.length)].join("...")} />
                                     : 
-                                        <Address title={this.state.search.address} address={this.state.search.address} />
+                                        <Address title={this.state.search.address} address={this.state.search.address} truncate={e => [e.slice(0, 5), e.slice(e.length-3, e.length)].join("...")} />
                                 }</Heading>
                                 <Protocols address={this.state.search.address} />
                             </div>

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import AssetView from '../asset-view';
 import styled, { ThemeProvider } from 'styled-components';
 
+import HasProfile from '../../hasProfile'
+
 import LogoSpank from '../../../images/spankBankChainsaw.svg'
 import { Identicon, Copyable, Table } from '@mycrypto/ui';
 
 import Web3 from 'web3';
-import { empty } from 'rxjs';
+
 let web3;
 if (typeof web3 !== 'undefined') {
   web3 = new Web3(web3.currentProvider);
@@ -85,6 +87,9 @@ class SpankChain extends Component {
     this.getCurrentState = this.getCurrentState.bind(this);
 
     this.state = {
+        "_USER": {
+            "hasProfile": false
+        },
         "STAKE": {
             "bootyBase": 0,
             "delegateKey": 0,
@@ -144,6 +149,14 @@ class SpankChain extends Component {
             "STAKE": objStake
         })
 
+        let objUser = this.getCurrentState("_USER");
+        if(objStake.startingPeriod > 0) {
+            objUser.hasProfile = true;
+            this.setState({
+                "_USER": objUser
+            });
+        }
+
       }).catch(e => {
         console.log(e.message);
       });
@@ -159,6 +172,15 @@ class SpankChain extends Component {
         }
 
         let objPeriod = this.getCurrentState("PERIOD");
+
+        if(this.state._USER.hasProfile === false) {
+            objPeriod.fetched = true;
+            this.setState({
+                "PERIOD": objPeriod
+            })
+            return;
+        }
+
         objPeriod.currentPeriod = r;
         objPeriod.maxPeriods = await objContract.methods.maxPeriods().call();
 
@@ -205,7 +227,10 @@ class SpankChain extends Component {
       return(
           <div>
               {intCurrentPeriod} / {intMaxPeriod}
-              <div style={{ fontSize: "10pt", display: "inline-block", fontStyle: "italic", color: "#b5b5b5", marginLeft: "1em" }}>Your stake {intEndingPeriod < intCurrentPeriod ? "ended" : "ends"} at period {intEndingPeriod}</div>
+              {intEndingPeriod > 0
+                ? <div style={{ fontSize: "10pt", display: "inline-block", fontStyle: "italic", color: "#b5b5b5", marginLeft: "1em" }}>Your stake {intEndingPeriod < intCurrentPeriod ? "ended" : "ends"} at period {intEndingPeriod}</div>
+                : ``
+              }
           </div>
       )
   }
@@ -248,6 +273,9 @@ class SpankChain extends Component {
   render() {
     return (
         <div>
+
+          <HasProfile profile="SpankChain Bank" bool={this.state._USER.hasProfile} />
+
           <AssetView 
             heading="STAKER PROFILE"
             icon={LogoSpank}

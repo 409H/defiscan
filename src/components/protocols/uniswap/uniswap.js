@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import AssetView from '../asset-view';
 import { BigNumber as BN } from 'bignumber.js'
 
+import HasProfile from '../../hasProfile'
+
 import LogoDai from '../../../images/dai.png'
 import LogoMkr from '../../../images/maker.png'
 import LogoSpank from '../../../images/spankchain.svg'
@@ -36,6 +38,9 @@ class Uniswap extends Component {
 
     // https://github.com/Uniswap/uniswap-frontend/blob/f8b8cd0ed01f7f4e612a76d8882b723ddfb20f47/src/ducks/addresses.js
     this.state = {
+      "_USER": {
+        "hasProfile": false
+      },
       "DAI": {
         "addresses": {
             "exchange": "0x09cabec1ead1c0ba254b09efb3ee13841712be14"
@@ -214,6 +219,15 @@ class Uniswap extends Component {
 
         objCurrentState.user.balance_in_eth = (BN(objCurrentState.user.balance).multipliedBy(100)).dividedBy(objCurrentState.price.EthToToken).toFixed(7);        
 
+        // If pooled > 0
+        let objUser = this.getCurrentState("_USER");
+        if(objCurrentState.user.balance > 0) {
+          objUser.hasProfile = true;
+          this.setState({
+            "_USER": objUser
+          });
+        }
+
         switch(strAssetName) {
             case 'DAI' :
               this.setState({
@@ -259,6 +273,9 @@ class Uniswap extends Component {
   render() {
     return (
         <div>
+
+          <HasProfile profile="Uniswap" bool={this.state._USER.hasProfile} />
+
           <AssetView 
             heading="DAI"
             icon={LogoDai}
