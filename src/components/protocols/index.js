@@ -12,7 +12,6 @@ import ImageBrand from '../ImageBrand'
 import LogoCompound from '../../images/compound_light.png'
 
 const Container = styled.div`
-  background: red;
   width: 100%;
 `;
 
