@@ -6,12 +6,27 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import LogoLoading from '../../../images/ajax-loader.gif'
 
+const AssetContainer = styled.div`
+    width: 400px;
+    display: inline-block;
+    border: 1px solid #000;
+    margin: 0.5em;
+    border-radius: 5px;
+    
+    @media (max-width: 799px) {
+        width: 100%;
+        display: block;    
+        margin-left: auto;
+        margin-right: auto;
+    }
+`;
+
 class AssetView extends Component {
 
     render()
     {
         return(
-            <div style={{width: '400px', display: 'inline-block', border: '1px solid #000', margin: '0.5em', borderRadius: '5px'}}>
+            <AssetContainer>
             {this.props.fetched 
                 ?
                     <StackedCard key={0} heading={this.props.heading} icons={[<ImageIcon src={this.props.icon} />]} entries={[
@@ -26,7 +41,7 @@ class AssetView extends Component {
                         ['Borrowed', <img src={LogoLoading} />]]
                     } />
             }
-            </div>
+            </AssetContainer>
         )
     }
 

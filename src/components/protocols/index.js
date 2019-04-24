@@ -11,6 +11,11 @@ import Uniswap from './uniswap/uniswap';
 import ImageBrand from '../ImageBrand'
 import LogoCompound from '../../images/compound_light.png'
 
+const Container = styled.div`
+  background: red;
+  width: 100%;
+`;
+
 class ProtocolIndex extends Component {
     
   constructor()
@@ -20,7 +25,7 @@ class ProtocolIndex extends Component {
 
   render() {
     return (
-        <div>
+        <Container>
            <Panel style={{display: 'block'}}>
             <Heading as="h3">Compound</Heading>
             <Compound address={this.props.address} web3={this.getWeb3}></Compound>
@@ -33,7 +38,7 @@ class ProtocolIndex extends Component {
             <Heading as="h3">MakerCDP</Heading>
             <MakerCdp address={this.props.address} web3={this.getWeb3}></MakerCdp>
            </Panel>            */}
-        </div>
+        </Container>
     );
   }
 }
