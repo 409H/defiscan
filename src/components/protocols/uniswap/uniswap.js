@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AssetView from './asset-view';
+import AssetView from '../asset-view';
 import { BigNumber as BN } from 'bignumber.js'
 
 import LogoDai from '../../../images/dai.png'
@@ -262,49 +262,67 @@ class Uniswap extends Component {
           <AssetView 
             heading="DAI"
             icon={LogoDai}
-            staked={this.state.DAI.user.balance}
-            eth={this.state.DAI.user.balance_in_eth}
-            totalSupply={this.state.DAI.exchange.totalSupply}
+            rows={[
+              ["POOLED", this.state.DAI.user.balance],
+              ["ETH VALUE", this.state.DAI.user.balance_in_eth],
+              ["TOTAL SUPPLY", this.state.DAI.exchange.totalSupply],
+              ["YOUR SHARE", "SOON%"]
+            ]}
             fetched={this.state.DAI.fetched}
           />
           <AssetView 
             heading="MKR"
             icon={LogoMkr}
-            staked={this.state.MKR.user.balance}
-            eth={this.state.MKR.user.balance_in_eth}
-            totalSupply={this.state.MKR.exchange.totalSupply}
+            rows={[
+              ["POOLED", this.state.MKR.user.balance],
+              ["ETH VALUE", this.state.MKR.user.balance_in_eth],
+              ["TOTAL SUPPLY", this.state.MKR.exchange.totalSupply],
+              ["YOUR SHARE", "SOON%"]
+            ]}
             fetched={this.state.MKR.fetched}
           />
           <AssetView 
             heading="SPANK"
             icon={LogoSpank}
-            staked={this.state.SPANK.user.balance}
-            eth={this.state.SPANK.user.balance_in_eth}
-            totalSupply={this.state.SPANK.exchange.totalSupply}
+            rows={[
+              ["POOLED", this.state.SPANK.user.balance],
+              ["ETH VALUE", this.state.SPANK.user.balance_in_eth],
+              ["TOTAL SUPPLY", this.state.SPANK.exchange.totalSupply],
+              ["YOUR SHARE", "SOON%"]
+            ]}
             fetched={this.state.SPANK.fetched}
           />
           <AssetView 
             heading="ANT"
             icon={LogoAnt}
-            staked={this.state.ANT.user.balance}
-            eth={this.state.ANT.user.balance_in_eth}
-            totalSupply={this.state.ANT.exchange.totalSupply}
+            rows={[
+              ["POOLED", this.state.ANT.user.balance],
+              ["ETH VALUE", this.state.ANT.user.balance_in_eth],
+              ["TOTAL SUPPLY", this.state.ANT.exchange.totalSupply],
+              ["YOUR SHARE", "SOON%"]
+            ]}
             fetched={this.state.ANT.fetched}
           />
           <AssetView 
             heading="ZRX"
             icon={LogoZrx}
-            staked={this.state.ZRX.user.balance}
-            eth={this.state.ZRX.user.balance_in_eth}
-            totalSupply={this.state.ZRX.exchange.totalSupply}
+            rows={[
+              ["POOLED", this.state.ZRX.user.balance],
+              ["ETH VALUE", this.state.ZRX.user.balance_in_eth],
+              ["TOTAL SUPPLY", this.state.ZRX.exchange.totalSupply],
+              ["YOUR SHARE", "SOON%"]
+            ]}
             fetched={this.state.ZRX.fetched}
           />
           <AssetView 
             heading="BAT"
             icon={LogoBat}
-            staked={this.state.BAT.user.balance}
-            eth={this.state.BAT.user.balance_in_eth}
-            totalSupply={this.state.BAT.exchange.totalSupply}
+            rows={[
+              ["POOLED", this.state.BAT.user.balance],
+              ["ETH VALUE", this.state.BAT.user.balance_in_eth],
+              ["TOTAL SUPPLY", this.state.BAT.exchange.totalSupply],
+              ["YOUR SHARE", "SOON%"]
+            ]}
             fetched={this.state.BAT.fetched}
           />                       
         </div>

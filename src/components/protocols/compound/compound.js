@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AssetView from './asset-view';
+import AssetView from '../asset-view';
 
 import LogoDai from '../../../images/dai.png'
 import LogoWeth from '../../../images/weth.png'
@@ -234,41 +234,51 @@ class AddressSearch extends Component {
           <AssetView 
             heading="DAI"
             icon={LogoDai}
-            staked={this.state.DAI.supply.principal}
-            interest={this.state.DAI.supply.interestAmount}
-            borrowed={this.state.DAI.borrow.principal}
+            rows={[
+              ["STAKED", this.state.DAI.supply.principal],
+              ["INTEREST GAINED", this.state.DAI.supply.interestAmount],
+              ["BORROWED", this.state.DAI.borrow.principal]
+            ]}
             fetched={this.state.DAI.fetched}
           />
           <AssetView 
             heading="WETH"
             icon={LogoWeth}
-            staked={this.state.WETH.supply.principal}
-            interest={this.state.WETH.supply.interestAmount}
-            borrowed={this.state.WETH.borrow.principal}
+            rows={[
+              ["STAKED", this.state.WETH.supply.principal],
+              ["INTEREST GAINED", this.state.WETH.supply.interestAmount],
+              ["BORROWED", this.state.WETH.borrow.principal]
+            ]}
             fetched={this.state.WETH.fetched}
           />
           <AssetView 
             heading="ZRX"
             icon={LogoZrx}
-            staked={this.state.ZRX.supply.principal}
-            interest={this.state.ZRX.supply.interestAmount}
-            borrowed={this.state.ZRX.borrow.principal}
+            rows={[
+              ["STAKED", this.state.ZRX.supply.principal],
+              ["INTEREST GAINED", this.state.ZRX.supply.interestAmount],
+              ["BORROWED", this.state.ZRX.borrow.principal]
+            ]}
             fetched={this.state.ZRX.fetched}
           />
           <AssetView 
             heading="REP"
             icon={LogoRep}
-            staked={this.state.REP.supply.principal}
-            interest={this.state.REP.supply.interestAmount}
-            borrowed={this.state.REP.borrow.principal}
+            rows={[
+              ["STAKED", this.state.REP.supply.principal],
+              ["INTEREST GAINED", this.state.REP.supply.interestAmount],
+              ["BORROWED", this.state.REP.borrow.principal]
+            ]}
             fetched={this.state.REP.fetched}
           />
           <AssetView 
             heading="BAT"
             icon={LogoBat}
-            staked={this.state.BAT.supply.principal}
-            interest={this.state.BAT.supply.interestAmount}
-            borrowed={this.state.BAT.borrow.principal}
+            rows={[
+              ["STAKED", this.state.BAT.supply.principal],
+              ["INTEREST GAINED", this.state.BAT.supply.interestAmount],
+              ["BORROWED", this.state.BAT.borrow.principal]
+            ]}
             fetched={this.state.BAT.fetched}
           />
         </div>
