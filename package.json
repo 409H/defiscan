@@ -2,7 +2,7 @@
   "name": "defiscan",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://harrydenley.com/defiscan",
+  "homepage": "https://defiscan.io/",
   "dependencies": {
     "@makerdao/dai": "^0.15.1-kovan.2",
     "@mycrypto/ui": "^0.14.0",

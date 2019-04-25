@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Defiscan",
+  "name": "A read-only Defi profile explorer for Compound, Uniswap, and SpankChain.",
   "icons": [
     {
       "src": "favicon.ico",
