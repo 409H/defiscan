@@ -15,11 +15,12 @@ const SearchArea = styled.div`
   display: block;
   margin: 0 auto;
 `
+
 class App extends Component {
 
   componentDidMount()
   {
-    document.title = "DefiScan"
+
   }
 
   render() {
