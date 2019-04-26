@@ -19,7 +19,7 @@ class HasProfile extends Component {
   render() {
     return (
         <ProfileContainer bool={this.props.bool}>
-            The address {this.props.bool ? "has" : "does not have"} a {this.props.profile} profile
+            The address {this.props.bool ? "has" : "does not have"} an active {this.props.profile} profile
         </ProfileContainer>
     );
   }
