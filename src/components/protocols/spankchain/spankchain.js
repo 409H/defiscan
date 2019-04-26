@@ -387,7 +387,8 @@ class SpankChain extends Component {
                 ["STAKED", <Currency value={this.state.STAKE.spankStaked} symbol="SPANK" />],
                 ["BOOTY BASE", this.formatAddress(this.state.STAKE.bootyBase)],
                 ["DELEGATE KEY", this.formatAddress(this.state.STAKE.delegateKey)],
-                ["PERIOD STARTED", this.state.STAKE.startingPeriod]
+                ["PERIOD STARTED", this.state.STAKE.startingPeriod],
+                ["STAKE END PERIOD", this.formatEndPeriod()]
             ]}
             fetched={this.state.STAKE.fetched}
           />
@@ -397,7 +398,6 @@ class SpankChain extends Component {
             icon={LogoSpank}
             rows={[
                 ["CURRENT PERIOD", this.state.PERIOD.currentPeriod],
-                ["STAKE END PERIOD", this.formatEndPeriod()],
                 ["START TIME", this.formatTimestamp(this.state.PERIOD.startTime)],
                 ["END TIME", this.formatTimestamp(this.state.PERIOD.endTime)]
             ]}
