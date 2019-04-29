@@ -5,6 +5,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import HasProfile from '../../hasProfile'
 import Currency from '../../currency'
 
+import LogoCompound from '../../../images/compound.png'
 import LogoDai from '../../../images/dai.png'
 import LogoWeth from '../../../images/weth.png'
 import LogoZrx from '../../../images/zrx.png'
@@ -43,13 +44,16 @@ class AddressSearch extends Component {
   {
     super(args);
     this.getSupplyBalances = this.getSupplyBalances.bind(this);
+    this.getBorrowBalance = this.getBorrowBalance.bind(this);
     this.getInterestGained = this.getInterestGained.bind(this);
     this.getCurrentState = this.getCurrentState.bind(this);
 
     this.state = {
       "_USER": {
         "hasProfile": false,
-        "allAssetsChecked": false
+        "allAssetsChecked": false,
+        "totalStaked": 0,
+        "totalBorrowed": 0
       },
       "DAI": {
         "supply": {
@@ -119,8 +123,6 @@ class AddressSearch extends Component {
     this._isMounted = true;
 
     await this.getSupplyBalances("0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359", "DAI") //Get DAI
-    await this.getBorrowBalances("0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359", "DAI") //Get DAI
-
     await this.getSupplyBalances("0x0d8775f648430679a709e98d2b0cb6250d2887ef", "BAT") //Get BAT
     await this.getSupplyBalances("0x1985365e9f78359a9B6AD760e32412f4a445E862", "REP") //Get REP
     await this.getSupplyBalances("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2", "WETH") //Get WETH
@@ -180,6 +182,7 @@ class AddressSearch extends Component {
         let objUser = this.getCurrentState("_USER");
         if(objCurrentState.supply.principal > 0 || objCurrentState.supply.interestAmount) {
           objUser.hasProfile = true;
+          objUser.totalStaked += parseInt(objCurrentState.supply.principal)
           this.setState({
             "_USER": objUser
           });
@@ -207,14 +210,17 @@ class AddressSearch extends Component {
           })
           break;
         }
+
+        await this.getBorrowBalance(strAssetAddress, strAssetName)
+
       }).catch(e => {
         console.log(e.message);
       });
   }
 
-  async getBorrowBalances(strAssetAddress, strAssetName)
+  async getBorrowBalance(strAssetAddress, strAssetName)
   {
-    await objContract.methods.borrowBalances(this.props.address, strAssetAddress).call()
+    await objContract.methods.getBorrowBalance(this.props.address, strAssetAddress).call()
     .then(r => {
 
       if(this._isMounted === false) {
@@ -223,14 +229,14 @@ class AddressSearch extends Component {
       
       let objCurrentState = this.getCurrentState(strAssetName);
       objCurrentState.borrow = {
-        principal: web3.utils.fromWei(r.principal.toString(), "ether"),
-        interestIndex: web3.utils.fromWei(r.interestIndex.toString(), "ether")
+        principal: web3.utils.fromWei(r.toString(), "ether")
       }
 
       // If borrow principal > 0 then they have a profile
       let objUser = this.getCurrentState("_USER");
       if(objCurrentState.borrow.principal > 0) {
         objUser.hasProfile = true;
+        objUser.totalBorrowed += parseInt(objCurrentState.borrow.principal)
         this.setState({
           "_USER": objUser
         });
@@ -259,7 +265,7 @@ class AddressSearch extends Component {
         break;
       }
     }).catch(e => {
-      console.log(e.message);
+      console.log(e);
     });
   }
     
@@ -268,6 +274,35 @@ class AddressSearch extends Component {
         <AssetContainer>
           
           <HasProfile profile="Compound Finance" bool={this.state._USER.hasProfile} />
+
+          { this.state._USER.hasProfile
+            ?
+              <AssetView
+                heading="OVERVIEW"
+                icon={LogoCompound}
+                rows={[
+                  ["STAKED", (this.state._USER.totalStaked / (this.state._USER.totalStaked+this.state._USER.totalBorrowed)*100).toFixed(2) + "%"],
+                  ["BORROWED", (this.state._USER.totalBorrowed / (this.state._USER.totalStaked+this.state._USER.totalBorrowed)*100).toFixed(2) + "%"]
+                ]}
+                pieChart={{
+                  title: "STAKED & BORROWED",
+                  data: [
+                    {title: "STAKED", value: this.state._USER.totalStaked, color: "#007896"},
+                    {title: "BORROWED", value: this.state._USER.totalBorrowed, color: "#004759"}
+                  ]
+                }}
+                fetched={this.state._USER.allAssetsChecked}
+              />
+            :
+              <AssetView 
+                heading="OVERVIEW"
+                icon={LogoCompound}
+                rows={[
+                  ["NO OVERVIEW", "No active profile"],
+                ]}
+                fetched={this.state._USER.allAssetsChecked}
+              />
+          }
 
           <AssetView 
             heading="DAI"

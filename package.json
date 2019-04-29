@@ -14,6 +14,7 @@
     "react-document-meta": "^3.0.0-beta.2",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
+    "react-svg-piechart": "^2.4.0",
     "styled-components": "^4.2.0"
   },
   "scripts": {
