@@ -182,7 +182,7 @@ class AddressSearch extends Component {
         let objUser = this.getCurrentState("_USER");
         if(objCurrentState.supply.principal > 0 || objCurrentState.supply.interestAmount) {
           objUser.hasProfile = true;
-          objUser.totalStaked += parseInt(objCurrentState.supply.principal)
+          objUser.totalStaked += parseFloat(objCurrentState.supply.principal)
           this.setState({
             "_USER": objUser
           });
@@ -236,7 +236,7 @@ class AddressSearch extends Component {
       let objUser = this.getCurrentState("_USER");
       if(objCurrentState.borrow.principal > 0) {
         objUser.hasProfile = true;
-        objUser.totalBorrowed += parseInt(objCurrentState.borrow.principal)
+        objUser.totalBorrowed += parseFloat(objCurrentState.borrow.principal)
         this.setState({
           "_USER": objUser
         });
@@ -270,6 +270,8 @@ class AddressSearch extends Component {
   }
     
   render() {
+    const flStakedPerc = (this.state._USER.totalStaked / (this.state._USER.totalStaked+this.state._USER.totalBorrowed)*100).toFixed(4)
+    const flBorrowPerc = (this.state._USER.totalBorrowed / (this.state._USER.totalStaked+this.state._USER.totalBorrowed)*100).toFixed(4)
     return (
         <AssetContainer>
           
@@ -281,8 +283,8 @@ class AddressSearch extends Component {
                 heading="OVERVIEW"
                 icon={LogoCompound}
                 rows={[
-                  ["STAKED", (this.state._USER.totalStaked / (this.state._USER.totalStaked+this.state._USER.totalBorrowed)*100).toFixed(2) + "%"],
-                  ["BORROWED", (this.state._USER.totalBorrowed / (this.state._USER.totalStaked+this.state._USER.totalBorrowed)*100).toFixed(2) + "%"]
+                  ["STAKED", flStakedPerc + "%"],
+                  ["BORROWED", flBorrowPerc + "%"]
                 ]}
                 pieChart={{
                   title: "STAKED & BORROWED",
