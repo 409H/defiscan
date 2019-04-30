@@ -274,15 +274,6 @@ class Uniswap extends Component {
 
         const totalSupply = await objContract.methods.totalSupply().call();
         objCurrentState.exchange.totalSupply = BN(totalSupply).dividedBy(10 ** this.state[strAssetName].meta.decimals).toFixed(this.state[strAssetName].meta.decimals);
-        
-        // If pooled > 0
-        let objUser = this.getCurrentState("_USER");
-        if(objCurrentState.user.balance > 0) {
-          objUser.hasProfile = true;
-          this.setState({
-            "_USER": objUser
-          });
-        }
 
         const decimals = this.state[strAssetName].meta.decimals // coolio
 
@@ -308,6 +299,15 @@ class Uniswap extends Component {
         }
 
         objCurrentState.fetched = true;
+
+        // If pooled > 0
+        let objUser = this.getCurrentState("_USER");
+        if(objCurrentState.user.balance > 0) {
+          objUser.hasProfile = true;
+          this.setState({
+            "_USER": objUser
+          });
+        }
 
         switch(strAssetName) {
             case 'DAI' :
