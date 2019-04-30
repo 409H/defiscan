@@ -50,9 +50,15 @@ class AddressSearch extends Component {
 
   }
 
-  async handleSearch(objEvent)
+  async handleSearch(objEvent, strValue = "")
   {
-    const strInput = objEvent.target.value;
+      let strInput = "";
+      if(objEvent) {
+        strInput = objEvent.target.value;
+      } else {
+          strInput = strValue;
+      }
+
     this.setState({search: {address: null, ens: false}, "error": null})
     // Are we searching for a 0x address or via ENS name?
     if(strInput.match(/^(0x)?[a-fA-F0-9]{40}$/, "g") !== null) {
@@ -65,18 +71,28 @@ class AddressSearch extends Component {
     } else {
         this.setState({search: {address: null, ens: false}})
     }
+
+    window.location.hash = strInput;
   }
 
   clearInput(objEvent)
   {
       objEvent.target.value = "";
   }
+
+  componentDidMount()
+  {
+      if(window.location.hash.substr(1).length > 0) {
+          document.getElementById("SearchInput").value = window.location.hash.substr(1);
+          this.handleSearch(null, window.location.hash.substr(1));
+      }
+  }
     
   render() {
     return (
         <Container>
             <SearchContainer>
-                <Input onClick={this.clearInput} onPaste={this.handleSearch} onKeyUp={this.handleSearch} placeholder="Search by address/ENS name"></Input> 
+                <Input id="SearchInput" onClick={this.clearInput} onPaste={this.handleSearch} onKeyUp={this.handleSearch} placeholder="Search by address/ENS name"></Input> 
                 <Button>Search</Button>
             </SearchContainer>
             {this.state.error
