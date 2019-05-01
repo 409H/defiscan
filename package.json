@@ -10,12 +10,14 @@
     "ethers": "^4.0.27",
     "ez-ens": "^1.1.1",
     "gh-pages": "^2.0.1",
+    "html-react-parser": "^0.7.0",
     "react": "^16.8.6",
     "react-document-meta": "^3.0.0-beta.2",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
     "react-svg-piechart": "^2.4.0",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "yaml": "^1.5.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,0 +1,21 @@
+[
+    {
+        "title": "Launch",
+        "type": "feature",
+        "date": "2019-04-30T00:00:00",
+        "description": "Read about the launch at <a href='https://medium.com/mycrypto/introducing-defiscan-io-40b8d2c3d445' target='_blank' rel='nofollow'>https://medium.com/mycrypto/introducing-defiscan-io-40b8d2c3d445</a>"
+    },
+    {
+        "title": "Uniswap numbers fixed",
+        "type": "fix",
+        "date": "2019-04-30T01:00:00",
+        "description": "Fixed an issue that incorrectly calculated the pool value and pool share"
+    },
+    {
+        "title": "Added public changelog",
+        "type": "vanity",
+        "date": "2019-05-01T00:00:00",
+        "description": "The changelog is now public, displayed in this drawer!"
+    }
+]
+  

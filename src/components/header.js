@@ -4,6 +4,8 @@ import Logo from './../images/mycrypto.jpg';
 import { Panel, light } from '@mycrypto/ui';
 import styled, { ThemeProvider } from 'styled-components';
 
+import Changelog from './changelog'
+
 const HeaderContainer = styled.div`
     display: block;
     box-sizing: border-box;
@@ -40,6 +42,8 @@ class Header extends Component {
                 A read-only Defi profile explorer for Compound, Uniswap, and SpankChain. <br />
                 Search by any user 0x address or ENS name - no web3 injection needed
             </Slogan>
+
+            <Changelog />
         </HeaderContainer>
     );
   }
