@@ -92,7 +92,7 @@ class AddressSearch extends Component {
     return (
         <Container>
             <SearchContainer>
-                <Input id="SearchInput" onClick={this.clearInput} onPaste={this.handleSearch} onKeyUp={this.handleSearch} placeholder="Search by address/ENS name"></Input> 
+                <Input id="SearchInput" onPaste={this.handleSearch} onKeyUp={this.handleSearch} type="search" placeholder="Search by address/ENS name"></Input> 
                 <Button>Search</Button>
             </SearchContainer>
             {this.state.error

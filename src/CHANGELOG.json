@@ -16,6 +16,12 @@
         "type": "vanity",
         "date": "2019-05-01T00:00:00",
         "description": "The changelog is now public, displayed in this drawer!"
+    },
+    {
+        "title": "Search box clearing",
+        "type": "fix",
+        "date": "2019-05-01T01:00:00",
+        "description": "Converted the input to a <code>search</code> type to have better experience for mobile users - especially mobile"
     }
 ]
   
