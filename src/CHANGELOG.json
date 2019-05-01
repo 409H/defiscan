@@ -21,7 +21,7 @@
         "title": "Search box clearing",
         "type": "fix",
         "date": "2019-05-01T01:00:00",
-        "description": "Converted the input to a <code>search</code> type to have better experience for mobile users - especially mobile"
+        "description": "Converted the input to a <code>search</code> type to have better experience for mobile users"
     }
 ]
   
