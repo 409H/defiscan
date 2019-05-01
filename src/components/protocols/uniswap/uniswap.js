@@ -295,7 +295,7 @@ class Uniswap extends Component {
           balance: ownedToken.toFixed(decimals),
           balance_in_eth: ownedToken.dividedBy(objCurrentState.price.TokenToEth).toFixed(18),
           liquidityBalance: liquidityBalance,
-          share_perc: ownership.toFixed(4)
+          share_perc: ownership.multipliedBy(100).toFixed(4)
         }
 
         objCurrentState.fetched = true;
