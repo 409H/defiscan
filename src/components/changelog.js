@@ -34,6 +34,10 @@ const Drawer = styled.div`
     background: #fff;
     z-index: 2;
 
+    @media (max-width: 500px) {
+        width: 100%;
+    }
+
     > section {
         text-align: left;
         padding: 1em;
