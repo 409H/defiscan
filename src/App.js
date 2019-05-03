@@ -8,6 +8,8 @@ import styled, { ThemeProvider } from 'styled-components';
 import Header from './components/header';
 import AddressSearch from './components/AddressSearch';
 
+import { web3, getWeb3Footer } from './components/protocols/web3' 
+
 const AppContainer = styled.div`
   padding: 1em;
 `
@@ -30,6 +32,7 @@ class App extends Component {
           <SearchArea>
             <AddressSearch />
           </SearchArea>
+          {getWeb3Footer(web3)}
       </AppContainer>
     );
   }

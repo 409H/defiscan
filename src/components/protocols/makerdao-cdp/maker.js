@@ -5,16 +5,7 @@ import { StackedCard, Address, Tooltip, Icon } from '@mycrypto/ui';
 import styled, { ThemeProvider } from 'styled-components';
 
 import Maker from '@makerdao/dai';
-
-import Web3 from 'web3';
-let web3;
-if (typeof web3 !== 'undefined') {
-  web3 = new Web3(web3.currentProvider);
-} else {
-  // set the provider you want from Web3.providers
-  web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/nWQTOIHYhOavIVKVvNah")); 
-  //web3 = new Web3(new Web3.providers.HttpProvider("https://freely-central-lark.quiknode.io/9fe4c4a0-2ea2-4ac1-ab64-f92990cd2914/118-xxADc8hKSSB9joCb-g==/"));
-}  
+import { web3 } from '../web3'
 
 class MakerCdp extends Component {
 

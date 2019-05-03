@@ -28,6 +28,7 @@ const Slogan = styled.span`
     display: block;
     margin-bottom: 2em;
 `;
+
 class Header extends Component {
   render() {
     return (
@@ -40,7 +41,7 @@ class Header extends Component {
 
             <Slogan>
                 A read-only Defi profile explorer for Compound, Uniswap, and SpankChain. <br />
-                Search by any user 0x address or ENS name - no web3 injection needed
+                Search by any user 0x address or ENS name - no web3 injection needed.
             </Slogan>
 
             <Changelog />
