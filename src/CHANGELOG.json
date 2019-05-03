@@ -22,6 +22,12 @@
         "type": "fix",
         "date": "2019-05-01T01:00:00",
         "description": "Converted the input to a <code>search</code> type to have better experience for mobile users"
-    }
+    },
+    {
+        "title": "Allow own node querying",
+        "type": "feature",
+        "date": "2019-05-03T00:00:00",
+        "description": "If you are viewing Defiscan that injects a Web3 instance, it will use that instance - no need to trust a node that Defiscan uses by default. Notice of using injected web3 instance is displayed in the footer."
+    }    
 ]
   
