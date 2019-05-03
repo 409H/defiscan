@@ -7,17 +7,7 @@ import Protocols from './protocols/index';
 
 import namehash from 'eth-ens-namehash'
 import ens from 'ez-ens';
-
-import Web3 from 'web3';
-let web3;
-if (typeof web3 !== 'undefined') {
-  web3 = new Web3(web3.currentProvider);
-  console.log(web3.currentProvider);
-} else {
-  // set the provider you want from Web3.providers
-  web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/nWQTOIHYhOavIVKVvNah")); 
-  //web3 = new Web3(new Web3.providers.HttpProvider("https://freely-central-lark.quiknode.io/9fe4c4a0-2ea2-4ac1-ab64-f92990cd2914/118-xxADc8hKSSB9joCb-g==/"));
-}  
+import { web3 } from './protocols/web3'
 
 const Container = styled.div`
     width: 100%;
@@ -34,13 +24,23 @@ const Error = styled.div`
     padding: 2em;
 `;
 
+const NetworkNoticeContainer = styled.div`
+    color: #697685;
+    font-size: 600;
+    padding-bottom: 1em;
+`
+
 class AddressSearch extends Component {
   constructor()
   {
     super();
     this.handleSearch = this.handleSearch.bind(this);
+    this.isOnCorrectNetwork = this.isOnCorrectNetwork.bind(this)
 
     this.state = {
+        network: {
+            mainnet: true
+        },
         search: {
             address: null,
             ens: false,
@@ -82,15 +82,32 @@ class AddressSearch extends Component {
 
   componentDidMount()
   {
+      this.isOnCorrectNetwork()
       if(window.location.hash.substr(1).length > 0) {
           document.getElementById("SearchInput").value = window.location.hash.substr(1);
           this.handleSearch(null, window.location.hash.substr(1));
       }
   }
+
+  isOnCorrectNetwork()
+  {
+        web3.eth.net.getNetworkType().then(n => {
+            if(n.toUpperCase() !== "MAIN") {
+                this.setState({network: {main: false}})
+            }
+        })
+  }
     
   render() {
+
+    let networkNotice;
+    if(this.state.network.main === false) {
+        networkNotice = <NetworkNoticeContainer>⚠️ Web3 network is not on mainnet - results could be funky!</NetworkNoticeContainer>
+    }
+
     return (
         <Container>
+            {networkNotice}
             <SearchContainer>
                 <Input id="SearchInput" onPaste={this.handleSearch} onKeyUp={this.handleSearch} type="search" placeholder="Search by address/ENS name"></Input> 
                 <Button>Search</Button>
