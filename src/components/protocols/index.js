@@ -11,7 +11,7 @@ import SpankChain from './spankchain/spankchain';
 
 import LogoUniswap from '../../images/uniswap.png'
 import LogoCompound from '../../images/compound.png'
-import LogoSpankchain from '../../images/spankchain.svg'
+import LogoSpankchain from '../../images/spankchain.jpg'
 
 const Container = styled.div`
   width: 100%;
@@ -79,7 +79,7 @@ class ProtocolIndex extends Component {
             </Panel>
            </ProtocolContainer>
 
-           <ProtocolContainer background={LogoSpankchain} rotate={true}>
+           <ProtocolContainer background={LogoSpankchain} rotate={false}>
             <Panel style={{display: 'block'}}>
                 <Heading as="h3">SpankChain</Heading>
                 <Description>
