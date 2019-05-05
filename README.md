@@ -8,7 +8,9 @@ This is a simple UI to get a current snapshot of any address for certain defi pr
 * Uniswap
 * Spankchain Bank
 
-This was a quick rush job so code architecture is probably not great but it works and that was my goal, heh.
+This was a quick rush job so code architecture is probably not great but it works and that was my goal.
+
+https://medium.com/mycrypto/introducing-defiscan-io-40b8d2c3d445
 
 ### Deployment
 
