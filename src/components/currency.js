@@ -21,7 +21,7 @@ class Currency extends Component {
     return (
         <div>
             {this.props.value} <CurrencySymbol>{this.props.symbol}</CurrencySymbol> <br />
-            <ValueInUSD>{this.props.usd_value ? (this.props.usd_value*parseFloat(this.props.value)).toLocaleString('en-US',{style:'currency',currency:'USD'}) + ' USD' : ''}</ValueInUSD>
+            <ValueInUSD>{this.props.usd_value > -1 ? (this.props.usd_value*parseFloat(this.props.value)).toLocaleString('en-US',{style:'currency',currency:'USD'}) + ' USD' : ''}</ValueInUSD>
         </div>
     );
   }
