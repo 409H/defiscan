@@ -17,6 +17,7 @@ import LogoBat from '../../../images/bat.png'
 import LogoUniswap from '../../../images/uniswap.png'
 
 import { web3 } from '../web3' 
+import { getPriceFeed } from '../../PriceFeed';
 
 const SubText = styled.div`
     display: inline-block;
@@ -50,6 +51,8 @@ class Uniswap extends Component {
         "allAssetsChecked": false
       },
       "DAI": {
+        "ticker": "DAI",
+        "value_in_usd": 0,
         "addresses": {
             "exchange": "0x09cabec1ead1c0ba254b09efb3ee13841712be14",
             "token": "0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359"
@@ -74,6 +77,8 @@ class Uniswap extends Component {
         "fetched": false
       },
       "MKR": {
+        "ticker": "MKR",
+        "value_in_usd": 0,
         "addresses": {
             "exchange": "0x2C4Bd064b998838076fa341A83d007FC2FA50957",
             "token": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2"
@@ -98,6 +103,8 @@ class Uniswap extends Component {
         "fetched": false
       },
       "SPANK": {
+        "ticker": "SPANK",
+        "value_in_usd": 0,
         "addresses": {
             "exchange": "0x4e395304655F0796bc3bc63709DB72173b9DdF98",
             "token": "0x42d6622deCe394b54999Fbd73D108123806f6a18"
@@ -122,6 +129,8 @@ class Uniswap extends Component {
         "fetched": false
       },
       "ANT": {
+        "ticker": "ANT",
+        "value_in_usd": 0,
         "addresses": {
             "exchange": "0x077d52B047735976dfdA76feF74d4d988AC25196",
             "token": "0x960b236A07cf122663c4303350609A66A7B288C0"
@@ -146,6 +155,8 @@ class Uniswap extends Component {
         "fetched": false
       },
       "ZRX": {
+        "ticker": "ZRX",
+        "value_in_usd": 0,
         "addresses": {
             "exchange": "0xaE76c84C9262Cdb9abc0C2c8888e62Db8E22A0bF",
             "token": "0xE41d2489571d322189246DaFA5ebDe1F4699F498"
@@ -170,6 +181,8 @@ class Uniswap extends Component {
         "fetched": false
       },
       "REP": {
+        "ticker": "REP",
+        "value_in_usd": 0,
         "addresses": {
             "exchange": "0x48B04d2A05B6B604d8d5223Fd1984f191DED51af",
             "token": "0x1985365e9f78359a9B6AD760e32412f4a445E862"
@@ -194,6 +207,8 @@ class Uniswap extends Component {
         "fetched": false
       },
       "BAT": {
+        "ticker": "BAT",
+        "value_in_usd": 0,
         "addresses": {
             "exchange": "0x2E642b8D59B45a1D8c5aEf716A84FF44ea665914",
             "token": "0x0D8775F648430679A709E98d2b0Cb6250d2887EF"
@@ -292,6 +307,9 @@ class Uniswap extends Component {
 
         objCurrentState.fetched = true;
 
+        const priceData = await getPriceFeed(objCurrentState.ticker)
+        objCurrentState.value_in_usd = priceData.error ? -1 : priceData.prices.price;
+
         // If pooled > 0
         let objUser = this.getCurrentState("_USER");
         if(objCurrentState.user.balance > 0) {
@@ -383,9 +401,9 @@ class Uniswap extends Component {
             heading="DAI"
             icon={LogoDai}
             rows={[
-              ["POOLED", <Currency value={this.state.DAI.user.balance} symbol="DAI" />],
+              ["POOLED", <Currency value={this.state.DAI.user.balance} symbol="DAI" usd_value={this.state.DAI.value_in_usd*parseFloat(this.state.DAI.user.balance)} />],
               //["ETH VALUE", <Currency value={this.state.DAI.user.balance_in_eth} symbol="ETH" />],
-              ["POOL SIZE", <Currency value={this.state.DAI.exchange.currentPool} symbol="DAI" />],
+              ["POOL SIZE", <Currency value={this.state.DAI.exchange.currentPool} symbol="DAI" usd_value={this.state.DAI.value_in_usd*parseFloat(this.state.DAI.exchange.currentPool)} />],
               ["ADDRESS SHARE", this.state.DAI.user.share_perc + "%"]
             ]}
             fetched={this.state.DAI.fetched}
@@ -394,9 +412,9 @@ class Uniswap extends Component {
             heading="MKR"
             icon={LogoMkr}
             rows={[
-              ["POOLED", <Currency value={this.state.MKR.user.balance} symbol="MKR" />],
+              ["POOLED", <Currency value={this.state.MKR.user.balance} symbol="MKR" usd_value={this.state.MKR.value_in_usd*parseFloat(this.state.MKR.user.balance)} />],
               //["ETH VALUE", <Currency value={this.state.MKR.user.balance_in_eth} symbol="ETH" />],
-              ["POOL SIZE", <Currency value={this.state.MKR.exchange.currentPool} symbol="MKR" />],
+              ["POOL SIZE", <Currency value={this.state.MKR.exchange.currentPool} symbol="MKR" usd_value={this.state.MKR.value_in_usd*parseFloat(this.state.MKR.exchange.currentPool)} />],
               ["ADDRESS SHARE", this.state.MKR.user.share_perc + "%"]
             ]}
             fetched={this.state.MKR.fetched}
@@ -405,9 +423,9 @@ class Uniswap extends Component {
             heading="SPANK"
             icon={LogoSpank}
             rows={[
-              ["POOLED", <Currency value={this.state.SPANK.user.balance} symbol="SPANK" />],
+              ["POOLED", <Currency value={this.state.SPANK.user.balance} symbol="SPANK" usd_value={this.state.SPANK.value_in_usd*parseFloat(this.state.SPANK.user.balance)} />],
               //["ETH VALUE", <Currency value={this.state.SPANK.user.balance_in_eth} symbol="ETH" />],
-              ["POOL SIZE", <Currency value={this.state.SPANK.exchange.currentPool} symbol="SPANK" />],
+              ["POOL SIZE", <Currency value={this.state.SPANK.exchange.currentPool} symbol="SPANK" usd_value={this.state.SPANK.value_in_usd*parseFloat(this.state.SPANK.exchange.currentPool)} />],
               ["ADDRESS SHARE", this.state.SPANK.user.share_perc + "%"]
             ]}
             fetched={this.state.SPANK.fetched}
@@ -416,9 +434,9 @@ class Uniswap extends Component {
             heading="ANT"
             icon={LogoAnt}
             rows={[
-              ["POOLED", <Currency value={this.state.ANT.user.balance} symbol="ANT" />],
+              ["POOLED", <Currency value={this.state.ANT.user.balance} symbol="ANT" usd_value={this.state.ANT.value_in_usd*parseFloat(this.state.ANT.user.balance)} />],
               //["ETH VALUE", <Currency value={this.state.ANT.user.balance_in_eth} symbol="ETH" />],
-              ["POOL SIZE", <Currency value={this.state.ANT.exchange.currentPool} symbol="ANT" />],
+              ["POOL SIZE", <Currency value={this.state.ANT.exchange.currentPool} symbol="ANT" usd_value={this.state.ANT.value_in_usd*parseFloat(this.state.ANT.exchange.currentPool)} />],
               ["ADDRESS SHARE", this.state.ANT.user.share_perc + "%"]
             ]}
             fetched={this.state.ANT.fetched}
@@ -427,9 +445,9 @@ class Uniswap extends Component {
             heading="ZRX"
             icon={LogoZrx}
             rows={[
-              ["POOLED", <Currency value={this.state.ZRX.user.balance} symbol="ZRX" />],
+              ["POOLED", <Currency value={this.state.ZRX.user.balance} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd*parseFloat(this.state.ZRX.user.balance)} />],
               //["ETH VALUE", <Currency value={this.state.ZRX.user.balance_in_eth} symbol="ETH" />],
-              ["POOL SIZE", <Currency value={this.state.ZRX.exchange.currentPool} symbol="ZRX" />],
+              ["POOL SIZE", <Currency value={this.state.ZRX.exchange.currentPool} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd*parseFloat(this.state.ZRX.exchange.currentPool)} />],
               ["ADDRESS SHARE", this.state.ZRX.user.share_perc + "%"]
             ]}
             fetched={this.state.ZRX.fetched}
@@ -438,9 +456,9 @@ class Uniswap extends Component {
             heading="BAT"
             icon={LogoBat}
             rows={[
-              ["POOLED", <Currency value={this.state.BAT.user.balance} symbol="BAT" />],
+              ["POOLED", <Currency value={this.state.BAT.user.balance} symbol="BAT" usd_value={this.state.BAT.value_in_usd*parseFloat(this.state.BAT.user.balance)} />],
               //["ETH VALUE", <Currency value={this.state.BAT.user.balance_in_eth} symbol="ETH" />],
-              ["POOL SIZE", <Currency value={this.state.BAT.exchange.currentPool} symbol="BAT" />],
+              ["POOL SIZE", <Currency value={this.state.BAT.exchange.currentPool} symbol="BAT" usd_value={this.state.BAT.value_in_usd*parseFloat(this.state.BAT.exchange.currentPool)} />],
               ["ADDRESS SHARE", this.state.BAT.user.share_perc + "%"]
             ]}
             fetched={this.state.BAT.fetched}

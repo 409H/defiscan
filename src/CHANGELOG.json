@@ -28,6 +28,12 @@
         "type": "feature",
         "date": "2019-05-03T00:00:00",
         "description": "If you are viewing Defiscan that injects a Web3 instance, it will use that instance - no need to trust a node that Defiscan uses by default. Notice of using injected web3 instance is displayed in the footer."
-    }    
+    },
+    {
+        "title": "USD Pricing",
+        "type": "feature",
+        "date": "2019-05-07T00:00:00",
+        "description": "You can now see the USD value of your holdings and total pool sizes! Pricing feeds are fetched from nomics and cached in an API."
+    }      
 ]
   
