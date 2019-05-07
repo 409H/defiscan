@@ -285,6 +285,37 @@ class AddressSearch extends Component {
   render() {
     const flStakedPerc = (this.state._USER.totalStaked / (this.state._USER.totalStaked+this.state._USER.totalBorrowed)*100).toFixed(4)
     const flBorrowPerc = (this.state._USER.totalBorrowed / (this.state._USER.totalStaked+this.state._USER.totalBorrowed)*100).toFixed(4)
+
+    let flTotalStakedUsd = 0;
+    let flTotalBorrowedUsd = 0;
+    let flTotalInterestUsd = 0;
+
+    if(this.state._USER.allAssetsChecked) {
+      flTotalStakedUsd = 
+        (parseFloat(this.state.DAI.value_in_usd) * (this.state.DAI.supply.principal))
+        + (parseFloat(this.state.WETH.value_in_usd) * (this.state.WETH.supply.principal))
+        + (parseFloat(this.state.ZRX.value_in_usd) * (this.state.ZRX.supply.principal))
+        + (parseFloat(this.state.REP.value_in_usd) * (this.state.REP.supply.principal))
+        + (parseFloat(this.state.BAT.value_in_usd) * (this.state.BAT.supply.principal))
+      ;
+
+      flTotalBorrowedUsd = 
+        (parseFloat(this.state.DAI.value_in_usd) * (this.state.DAI.borrow.principal))
+        + (parseFloat(this.state.WETH.value_in_usd) * (this.state.WETH.borrow.principal))
+        + (parseFloat(this.state.ZRX.value_in_usd) * (this.state.ZRX.borrow.principal))
+        + (parseFloat(this.state.REP.value_in_usd) * (this.state.REP.borrow.principal))
+        + (parseFloat(this.state.BAT.value_in_usd) * (this.state.BAT.borrow.principal))
+      ;
+
+      flTotalInterestUsd = 
+        (parseFloat(this.state.DAI.value_in_usd) * (this.state.DAI.supply.interestAmount))
+        + (parseFloat(this.state.WETH.value_in_usd) * (this.state.WETH.supply.interestAmount))
+        + (parseFloat(this.state.ZRX.value_in_usd) * (this.state.ZRX.supply.interestAmount))
+        + (parseFloat(this.state.REP.value_in_usd) * (this.state.REP.supply.interestAmount))
+        + (parseFloat(this.state.BAT.value_in_usd) * (this.state.BAT.supply.interestAmount))
+      ;
+    }
+
     return (
         <AssetContainer>
           
@@ -296,8 +327,8 @@ class AddressSearch extends Component {
                 heading="OVERVIEW"
                 icon={LogoCompound}
                 rows={[
-                  ["STAKED", flStakedPerc + "%"],
-                  ["BORROWED", flBorrowPerc + "%"]
+                  ["STAKED", <Currency value={flStakedPerc} symbol="%" usd_value={flTotalStakedUsd} interest_amount={flTotalInterestUsd} />],
+                  ["BORROWED", <Currency value={flBorrowPerc} symbol="%" usd_value={flTotalBorrowedUsd} />],
                 ]}
                 pieChart={{
                   title: "STAKED & BORROWED",
@@ -323,9 +354,9 @@ class AddressSearch extends Component {
             heading="DAI"
             icon={LogoDai}
             rows={[
-              ["STAKED", <Currency value={this.state.DAI.supply.principal} symbol="DAI" usd_value={this.state.DAI.value_in_usd} />],
-              ["INTEREST GAINED", <Currency value={this.state.DAI.supply.interestAmount} symbol="DAI" usd_value={this.state.DAI.value_in_usd} />],
-              ["BORROWED", <Currency value={this.state.DAI.borrow.principal} symbol="DAI" usd_value={this.state.DAI.value_in_usd} />],
+              ["STAKED", <Currency value={this.state.DAI.supply.principal} symbol="DAI" usd_value={this.state.DAI.value_in_usd*parseFloat(this.state.DAI.supply.principal)} />],
+              ["INTEREST GAINED", <Currency value={this.state.DAI.supply.interestAmount} symbol="DAI" usd_value={this.state.DAI.value_in_usd*parseFloat(this.state.DAI.supply.interestAmount)} />],
+              ["BORROWED", <Currency value={this.state.DAI.borrow.principal} symbol="DAI" usd_value={this.state.DAI.value_in_usd*parseFloat(this.state.DAI.borrow.principal)} />],
             ]}
             fetched={this.state.DAI.fetched}
           />
@@ -333,9 +364,9 @@ class AddressSearch extends Component {
             heading="WETH"
             icon={LogoWeth}
             rows={[
-              ["STAKED", <Currency value={this.state.WETH.supply.principal} symbol="WETH" usd_value={this.state.WETH.value_in_usd} />],
-              ["INTEREST GAINED", <Currency value={this.state.WETH.supply.interestAmount} symbol="WETH" usd_value={this.state.WETH.value_in_usd} />],
-              ["BORROWED", <Currency value={this.state.WETH.borrow.principal} symbol="WETH" usd_value={this.state.WETH.value_in_usd} />],
+              ["STAKED", <Currency value={this.state.WETH.supply.principal} symbol="WETH" usd_value={this.state.WETH.value_in_usd*parseFloat(this.state.WETH.supply.principal)} />],
+              ["INTEREST GAINED", <Currency value={this.state.WETH.supply.interestAmount} symbol="WETH" usd_value={this.state.WETH.value_in_usd*parseFloat(this.state.WETH.supply.interestAmount)} />],
+              ["BORROWED", <Currency value={this.state.WETH.borrow.principal} symbol="WETH" usd_value={this.state.WETH.value_in_usd*parseFloat(this.state.WETH.borrow.principal)} />],
             ]}
             fetched={this.state.WETH.fetched}
           />
@@ -343,9 +374,9 @@ class AddressSearch extends Component {
             heading="ZRX"
             icon={LogoZrx}
             rows={[
-              ["STAKED", <Currency value={this.state.ZRX.supply.principal} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd} />],
-              ["INTEREST GAINED", <Currency value={this.state.ZRX.supply.interestAmount} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd} />],
-              ["BORROWED", <Currency value={this.state.ZRX.borrow.principal} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd} />],
+              ["STAKED", <Currency value={this.state.ZRX.supply.principal} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd*parseFloat(this.state.ZRX.borrow.principal)} />],
+              ["INTEREST GAINED", <Currency value={this.state.ZRX.supply.interestAmount} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd*parseFloat(this.state.ZRX.supply.interestAmount)} />],
+              ["BORROWED", <Currency value={this.state.ZRX.borrow.principal} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd*parseFloat(this.state.ZRX.borrow.principal)} />],
             ]}
             fetched={this.state.ZRX.fetched}
           />
@@ -353,9 +384,9 @@ class AddressSearch extends Component {
             heading="REP"
             icon={LogoRep}
             rows={[
-              ["STAKED", <Currency value={this.state.REP.supply.principal} symbol="REP" usd_value={this.state.REP.value_in_usd} />],
-              ["INTEREST GAINED", <Currency value={this.state.REP.supply.interestAmount} symbol="REP" usd_value={this.state.REP.value_in_usd} />],
-              ["BORROWED", <Currency value={this.state.REP.borrow.principal} symbol="REP" usd_value={this.state.REP.value_in_usd} />],
+              ["STAKED", <Currency value={this.state.REP.supply.principal} symbol="REP" usd_value={this.state.REP.value_in_usd*parseFloat(this.state.REP.borrow.principal)} />],
+              ["INTEREST GAINED", <Currency value={this.state.REP.supply.interestAmount} symbol="REP" usd_value={this.state.REP.value_in_usd*parseFloat(this.state.REP.supply.interestAmount)} />],
+              ["BORROWED", <Currency value={this.state.REP.borrow.principal} symbol="REP" usd_value={this.state.REP.value_in_usd*parseFloat(this.state.REP.borrow.principal)} />],
             ]}
             fetched={this.state.REP.fetched}
           />
@@ -363,9 +394,9 @@ class AddressSearch extends Component {
             heading="BAT"
             icon={LogoBat}
             rows={[
-              ["STAKED", <Currency value={this.state.BAT.supply.principal} symbol="BAT" usd_value={this.state.BAT.value_in_usd} />],
-              ["INTEREST GAINED", <Currency value={this.state.BAT.supply.interestAmount} symbol="BAT" usd_value={this.state.BAT.value_in_usd} />],
-              ["BORROWED", <Currency value={this.state.BAT.borrow.principal} symbol="BAT" usd_value={this.state.BAT.value_in_usd} />],
+              ["STAKED", <Currency value={this.state.BAT.supply.principal} symbol="BAT" usd_value={this.state.BAT.value_in_usd*parseFloat(this.state.BAT.borrow.principal)} />],
+              ["INTEREST GAINED", <Currency value={this.state.BAT.supply.interestAmount} symbol="BAT" usd_value={this.state.BAT.value_in_usd*parseFloat(this.state.BAT.supply.interestAmount)} />],
+              ["BORROWED", <Currency value={this.state.BAT.borrow.principal} symbol="BAT" usd_value={this.state.BAT.value_in_usd*parseFloat(this.state.BAT.borrow.principal)} />],
             ]}
             fetched={this.state.BAT.fetched}
           />

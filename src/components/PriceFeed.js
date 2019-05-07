@@ -1,5 +1,6 @@
 import axios from 'axios'
-const PRICE_FEED_API = "https://defiscan-api.herokuapp.com/api/price/{TICKER}/usd"
+const PRICE_FEED_API = "https://defiscan-api.herokuapp.com/api/v1/price/{TICKER}/usd"
+const PRICE_FEED_SETTINGS = "https://defiscan-api.herokuapp.com/api/v1/price/settings"
 
 async function getPriceFeed(strTicker) {
     const objResponse = await axios(PRICE_FEED_API.replace("{TICKER}", strTicker));
@@ -12,4 +13,16 @@ async function getPriceFeed(strTicker) {
     }
 }
 
-export { getPriceFeed }
+function getPriceFeedSettings() {
+    return axios(PRICE_FEED_SETTINGS)
+        .then(response => {
+            return response;
+        })
+        .catch(function(error) {
+            return {
+                "refresh_rate": -1
+            }
+        })
+}
+
+export { getPriceFeed, getPriceFeedSettings }
