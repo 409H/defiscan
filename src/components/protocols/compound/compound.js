@@ -13,6 +13,7 @@ import LogoBat from '../../../images/bat.png'
 import LogoRep from '../../../images/rep.png'
 
 import { web3 } from '../web3'
+import { getPriceFeed } from '../../PriceFeed';
 
 const AssetContainer = styled.div`
 `;
@@ -48,6 +49,8 @@ class AddressSearch extends Component {
         "totalBorrowed": 0
       },
       "DAI": {
+        "ticker": "DAI",
+        "value_in_usd": 0,
         "supply": {
           "principal": 0,
           "interestIndex": 0,
@@ -60,6 +63,8 @@ class AddressSearch extends Component {
         "fetched": false
       },
       "WETH": {
+        "ticker": "ETH",
+        "value_in_usd": 0,
         "supply": {
           "principal": 0,
           "interestIndex": 0,
@@ -72,6 +77,8 @@ class AddressSearch extends Component {
         "fetched": false
       },
       "ZRX": {
+        "ticker": "ZRX",
+        "value_in_usd": 0,
         "supply": {
           "principal": 0,
           "interestIndex": 0,
@@ -84,6 +91,8 @@ class AddressSearch extends Component {
         "fetched": false
       },
       "REP": {
+        "ticker": "REP",
+        "value_in_usd": 0,
         "supply": {
           "principal": 0,
           "interestIndex": 0,
@@ -96,6 +105,8 @@ class AddressSearch extends Component {
         "fetched": false
       },
       "BAT": {
+        "ticker": "BAT",
+        "value_in_usd": 0,
         "supply": {
           "principal": 0,
           "interestIndex": 0,
@@ -180,6 +191,11 @@ class AddressSearch extends Component {
           });
         }
 
+        if(objCurrentState.supply.principal > 0 || objCurrentState.supply.interestAmount > 0) {
+          const priceData = await getPriceFeed(objCurrentState.ticker)
+          objCurrentState.value_in_usd = priceData.error ? -1 : priceData.prices.price;
+        }
+
         switch(strAssetName) {
           case 'DAI' :
             this.setState({
@@ -213,7 +229,7 @@ class AddressSearch extends Component {
   async getBorrowBalance(strAssetAddress, strAssetName)
   {
     await objContract.methods.getBorrowBalance(this.props.address, strAssetAddress).call()
-    .then(r => {
+    .then(async r => {
 
       if(this._isMounted === false) {
         return;
@@ -232,6 +248,11 @@ class AddressSearch extends Component {
         this.setState({
           "_USER": objUser
         });
+      }
+      
+      if(objCurrentState.borrow.principal > 0) {
+        const priceData = await getPriceFeed(objCurrentState.ticker)
+        objCurrentState.value_in_usd = priceData.error ? -1 : priceData.prices.price;
       }
 
       switch(strAssetName) {
@@ -302,9 +323,9 @@ class AddressSearch extends Component {
             heading="DAI"
             icon={LogoDai}
             rows={[
-              ["STAKED", <Currency value={this.state.DAI.supply.principal} symbol="DAI" />],
-              ["INTEREST GAINED", <Currency value={this.state.DAI.supply.interestAmount} symbol="DAI" />],
-              ["BORROWED", <Currency value={this.state.DAI.borrow.principal} symbol="DAI" />],
+              ["STAKED", <Currency value={this.state.DAI.supply.principal} symbol="DAI" usd_value={this.state.DAI.value_in_usd} />],
+              ["INTEREST GAINED", <Currency value={this.state.DAI.supply.interestAmount} symbol="DAI" usd_value={this.state.DAI.value_in_usd} />],
+              ["BORROWED", <Currency value={this.state.DAI.borrow.principal} symbol="DAI" usd_value={this.state.DAI.value_in_usd} />],
             ]}
             fetched={this.state.DAI.fetched}
           />
@@ -312,9 +333,9 @@ class AddressSearch extends Component {
             heading="WETH"
             icon={LogoWeth}
             rows={[
-              ["STAKED", <Currency value={this.state.WETH.supply.principal} symbol="WETH" />],
-              ["INTEREST GAINED", <Currency value={this.state.WETH.supply.interestAmount} symbol="WETH" />],
-              ["BORROWED", <Currency value={this.state.WETH.borrow.principal} symbol="WETH" />],
+              ["STAKED", <Currency value={this.state.WETH.supply.principal} symbol="WETH" usd_value={this.state.WETH.value_in_usd} />],
+              ["INTEREST GAINED", <Currency value={this.state.WETH.supply.interestAmount} symbol="WETH" usd_value={this.state.WETH.value_in_usd} />],
+              ["BORROWED", <Currency value={this.state.WETH.borrow.principal} symbol="WETH" usd_value={this.state.WETH.value_in_usd} />],
             ]}
             fetched={this.state.WETH.fetched}
           />
@@ -322,9 +343,9 @@ class AddressSearch extends Component {
             heading="ZRX"
             icon={LogoZrx}
             rows={[
-              ["STAKED", <Currency value={this.state.ZRX.supply.principal} symbol="ZRX" />],
-              ["INTEREST GAINED", <Currency value={this.state.ZRX.supply.interestAmount} symbol="ZRX" />],
-              ["BORROWED", <Currency value={this.state.ZRX.borrow.principal} symbol="ZRX" />],
+              ["STAKED", <Currency value={this.state.ZRX.supply.principal} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd} />],
+              ["INTEREST GAINED", <Currency value={this.state.ZRX.supply.interestAmount} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd} />],
+              ["BORROWED", <Currency value={this.state.ZRX.borrow.principal} symbol="ZRX" usd_value={this.state.ZRX.value_in_usd} />],
             ]}
             fetched={this.state.ZRX.fetched}
           />
@@ -332,9 +353,9 @@ class AddressSearch extends Component {
             heading="REP"
             icon={LogoRep}
             rows={[
-              ["STAKED", <Currency value={this.state.REP.supply.principal} symbol="REP" />],
-              ["INTEREST GAINED", <Currency value={this.state.REP.supply.interestAmount} symbol="REP" />],
-              ["BORROWED", <Currency value={this.state.REP.borrow.principal} symbol="REP" />],
+              ["STAKED", <Currency value={this.state.REP.supply.principal} symbol="REP" usd_value={this.state.REP.value_in_usd} />],
+              ["INTEREST GAINED", <Currency value={this.state.REP.supply.interestAmount} symbol="REP" usd_value={this.state.REP.value_in_usd} />],
+              ["BORROWED", <Currency value={this.state.REP.borrow.principal} symbol="REP" usd_value={this.state.REP.value_in_usd} />],
             ]}
             fetched={this.state.REP.fetched}
           />
@@ -342,9 +363,9 @@ class AddressSearch extends Component {
             heading="BAT"
             icon={LogoBat}
             rows={[
-              ["STAKED", <Currency value={this.state.BAT.supply.principal} symbol="BAT" />],
-              ["INTEREST GAINED", <Currency value={this.state.BAT.supply.interestAmount} symbol="BAT" />],
-              ["BORROWED", <Currency value={this.state.BAT.borrow.principal} symbol="BAT" />],
+              ["STAKED", <Currency value={this.state.BAT.supply.principal} symbol="BAT" usd_value={this.state.BAT.value_in_usd} />],
+              ["INTEREST GAINED", <Currency value={this.state.BAT.supply.interestAmount} symbol="BAT" usd_value={this.state.BAT.value_in_usd} />],
+              ["BORROWED", <Currency value={this.state.BAT.borrow.principal} symbol="BAT" usd_value={this.state.BAT.value_in_usd} />],
             ]}
             fetched={this.state.BAT.fetched}
           />
