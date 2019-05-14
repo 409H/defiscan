@@ -7,6 +7,7 @@ import LogoMetamask from '../../images/providers/metamask.png'
 import LogoCoinbase from '../../images/providers/coinbase.jpg'
 import LogoStatus from '../../images/providers/status.png'
 import LogoTrust from '../../images/providers/trust.png'
+import LogoBoE from '../../images/built-on-ethereum.svg'
 import { getPriceFeedSettings } from '../PriceFeed';
 
 const Web3FooterContainer = styled.div`
@@ -78,6 +79,8 @@ function getWeb3Footer(web3, blIsMainnet)
                     ``
             }
             <span>Prices sourced from <a href="https://nomics.com/" target="_blank" rel="nofollow">https://nomics.com/</a> {strFooterPriceFeedText}</span>
+            <br /><br />
+            <center><img src={LogoBoE} alt="Built on Ethereum" height="30px" /></center>
         </Web3FooterContainer>
     )
 }
