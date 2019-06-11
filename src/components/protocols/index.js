@@ -13,6 +13,8 @@ import LogoUniswap from '../../images/uniswap.png'
 import LogoCompound from '../../images/compound.png'
 import LogoSpankchain from '../../images/spankchain.jpg'
 
+import AddressSegment from '../addressSegment.js'
+
 const Container = styled.div`
   width: 100%;
 `;
@@ -57,6 +59,8 @@ class ProtocolIndex extends Component {
     return (
         <Container>
 
+          <AddressSegment address={this.props.address} />
+
           <ProtocolContainer background={LogoCompound} rotate={false}>
            <Panel style={{display: 'block'}}>
               <Heading as="h3">Compound (v1)</Heading>
@@ -67,6 +71,8 @@ class ProtocolIndex extends Component {
             <Compound address={this.props.address} web3={this.getWeb3}></Compound>
            </Panel>
            </ProtocolContainer>
+
+           <AddressSegment address={this.props.address} />
 
            <ProtocolContainer background={LogoUniswap} rotate={true}>
             <Panel style={{display: 'block'}}>
@@ -79,6 +85,8 @@ class ProtocolIndex extends Component {
             </Panel>
            </ProtocolContainer>
 
+           <AddressSegment address={this.props.address} />
+           
            <ProtocolContainer background={LogoSpankchain} rotate={false}>
             <Panel style={{display: 'block'}}>
                 <Heading as="h3">SpankChain</Heading>

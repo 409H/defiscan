@@ -11,6 +11,7 @@ import { web3 } from './protocols/web3'
 
 const Container = styled.div`
     width: 100%;
+    margin-bottom: 5em;
 `;
 
 const SearchContainer = styled.div`
