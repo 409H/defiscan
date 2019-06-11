@@ -19,6 +19,7 @@ const Web3FooterContainer = styled.div`
     left: 0em;
     padding: 0.5em;
     font-size: 8pt;
+    text-align: center;
 
     > span {
         margin-right: 3em;

@@ -4,7 +4,7 @@ import { Panel, Heading } from '@mycrypto/ui';
 import styled, { ThemeProvider } from 'styled-components';
 
 import Web3 from 'web3';
-import Compound from './compound/compound';
+import Compound from './compound/v1/compound';
 import MakerCdp from './makerdao-cdp/maker';
 import Uniswap from './uniswap/uniswap';
 import SpankChain from './spankchain/spankchain';
@@ -59,10 +59,10 @@ class ProtocolIndex extends Component {
 
           <ProtocolContainer background={LogoCompound} rotate={false}>
            <Panel style={{display: 'block'}}>
-              <Heading as="h3">Compound</Heading>
+              <Heading as="h3">Compound (v1)</Heading>
               <Description>
                   Compound is an open-source protocol for algorithmic, efficient Money Markets on the Ethereum blockchain. <br />
-                  <a href="https://compound.finance/" target="_blank" rel="nofollow">https://compound.finance</a>
+                  <a href="https://legacy.compound.finance/" target="_blank" rel="nofollow">https://legacy.compound.finance</a>
               </Description>
             <Compound address={this.props.address} web3={this.getWeb3}></Compound>
            </Panel>

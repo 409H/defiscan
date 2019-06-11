@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import AssetView from '../asset-view';
+import AssetView from '../../asset-view';
 import styled, { ThemeProvider } from 'styled-components';
 
-import HasProfile from '../../hasProfile'
-import Currency from '../../currency'
+import HasProfile from '../../../hasProfile'
+import Currency from '../../../currency'
 
-import LogoCompound from '../../../images/compound.png'
-import LogoDai from '../../../images/dai.png'
-import LogoWeth from '../../../images/weth.png'
-import LogoZrx from '../../../images/zrx.png'
-import LogoBat from '../../../images/bat.png'
-import LogoRep from '../../../images/rep.png'
+import LogoCompound from '../../../../images/compound.png'
+import LogoDai from '../../../../images/dai.png'
+import LogoWeth from '../../../../images/weth.png'
+import LogoZrx from '../../../../images/zrx.png'
+import LogoBat from '../../../../images/bat.png'
+import LogoRep from '../../../../images/rep.png'
 
-import { web3 } from '../web3'
-import { getPriceFeed } from '../../PriceFeed';
+import { web3 } from '../../web3'
+import { getPriceFeed } from '../../../PriceFeed';
 
 const AssetContainer = styled.div`
 `;
@@ -319,7 +319,7 @@ class AddressSearch extends Component {
     return (
         <AssetContainer>
           
-          <HasProfile profile="Compound Finance" bool={this.state._USER.hasProfile} />
+          <HasProfile profile="Compound Finance (v1)" bool={this.state._USER.hasProfile} />
 
           { this.state._USER.hasProfile
             ?
