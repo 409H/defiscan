@@ -16,6 +16,7 @@ const AppContainer = styled.div`
 const SearchArea = styled.div`
   display: block;
   margin: 0 auto;
+  padding-bottom: 5em;
 `
 
 class App extends Component {

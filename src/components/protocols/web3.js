@@ -8,6 +8,7 @@ import LogoCoinbase from '../../images/providers/coinbase.jpg'
 import LogoStatus from '../../images/providers/status.png'
 import LogoTrust from '../../images/providers/trust.png'
 import LogoBoE from '../../images/built-on-ethereum.svg'
+import LogoDefiPulse from '../../images/defipulse.svg'
 import { getPriceFeedSettings } from '../PriceFeed';
 
 const Web3FooterContainer = styled.div`
@@ -17,7 +18,7 @@ const Web3FooterContainer = styled.div`
     position: fixed;
     bottom: 0em;
     left: 0em;
-    padding: 0.5em;
+    padding: 1em;
     font-size: 8pt;
     text-align: center;
 
@@ -75,13 +76,15 @@ function getWeb3Footer(web3, blIsMainnet)
         <Web3FooterContainer>
             { provider !== "" 
                 ?
-                    <span>{logo} Web3 provided with {provider} injection</span>
+                    <span>{logo} Web3 provided with {provider} injection<br /></span>
                 :
                     ``
             }
             <span>Prices sourced from <a href="https://nomics.com/" target="_blank" rel="nofollow">https://nomics.com/</a> {strFooterPriceFeedText}</span>
             <br /><br />
-            <center><img src={LogoBoE} alt="Built on Ethereum" height="30px" /></center>
+            <center><a href="https://defipulse.com/" target="_blank"><img src={LogoDefiPulse} alt="DefiPulse Logo" title="Partnered with DefiPulse" height="15px" /></a></center>
+            <br />
+            <center><img src={LogoBoE} title="Built on Ethereum" alt="Built on Ethereum" height="30px" /></center>
         </Web3FooterContainer>
     )
 }
