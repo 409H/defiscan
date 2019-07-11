@@ -82,8 +82,8 @@ function getWeb3Footer(web3, blIsMainnet)
             }
             <span>Prices sourced from <a href="https://nomics.com/" target="_blank" rel="nofollow">https://nomics.com/</a> {strFooterPriceFeedText}</span>
             <br /><br />
-            <center><a href="https://defipulse.com/" target="_blank"><img src={LogoDefiPulse} alt="DefiPulse Logo" title="Partnered with DefiPulse" height="30px" /></a></center>
-            <br /><br />
+            <center><a href="https://defipulse.com/" target="_blank"><img src={LogoDefiPulse} alt="DefiPulse Logo" title="Partnered with DefiPulse" height="15px" /></a></center>
+            <br />
             <center><img src={LogoBoE} title="Built on Ethereum" alt="Built on Ethereum" height="30px" /></center>
         </Web3FooterContainer>
     )
