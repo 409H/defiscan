@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import { Panel, light } from '@mycrypto/ui';
-import styled, { ThemeProvider } from 'styled-components';
-
+import styled from 'styled-components';
 import Header from './components/header';
 import AddressSearch from './components/AddressSearch';
 

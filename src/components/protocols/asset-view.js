@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ImageIcon from '../ImageIcon';
 
-import { StackedCard, Address, Tooltip, Icon, Identicon, Copyable } from '@mycrypto/ui';
-import styled, { ThemeProvider } from 'styled-components';
+import { StackedCard  } from '@mycrypto/ui';
+import styled from 'styled-components';
 
 import LogoLoading from '../../images/ajax-loader.gif'
 
@@ -47,15 +47,15 @@ class AssetView extends Component {
         } else {
             
             if(this.props.pieChart) {
-                return(<StackedCard key={0} heading={this.props.heading} icons={[<ImageIcon src={this.props.icon} />]} entries={[
-                    [this.props.pieChart.title, <img src={LogoLoading} />]
+                return(<StackedCard key={0} heading={this.props.heading} icons={[<ImageIcon src={this.props.icon} alt="Loading..."/>]} entries={[
+                    [this.props.pieChart.title, <img src={LogoLoading} alt="Loading..."/>]
                  ]} />)
             } else {
                 this.props.rows.map(e => {
-                    return e[1] = <img src={LogoLoading} />
+                    return e[1] = <img src={LogoLoading} alt="Loading..."/>
                 })
 
-                return(<StackedCard key={0} heading={<img src={LogoLoading} />} icons={[<img src={LogoLoading} />]} entries={this.props.rows} />)
+                return(<StackedCard key={0} heading={<img src={LogoLoading} alt="Loading..."/>} icons={[<img src={LogoLoading} alt="Loading..."/>]} entries={this.props.rows} />)
             }
         }
     }

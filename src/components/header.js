@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Logo from './../images/mycrypto.jpg';
-
-import { Panel, light } from '@mycrypto/ui';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
 import Changelog from './changelog'
 

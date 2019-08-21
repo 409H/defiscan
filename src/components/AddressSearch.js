@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Button, Input, Heading, Address } from '@mycrypto/ui';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
 import Protocols from './protocols/index';
 
@@ -64,9 +64,8 @@ class AddressSearch extends Component {
     // Are we searching for a 0x address or via ENS name?
     if(strInput.match(/^(0x)?[a-fA-F0-9]{40}$/, "g") !== null) {
         this.setState({search: {address: strInput, ens: false}})
-    } else if(strInput.match(/[A-z0-0\_]+?\.eth$/, "g") !== null) {
+    } else if(strInput.match(/[A-z0-0_]+?\.eth$/, "g") !== null) {
         let strNormalised = namehash.normalize(strInput);
-        let hash = namehash.hash(strInput);
         let strAddress = await ens.resolve(strNormalised, {web3: web3}).catch(e => this.setState({"error": "No resolver for ENS name!"}));
         this.setState({search: {address: strAddress, ens: true, ens_name: strNormalised}});
     } else {
@@ -103,7 +102,7 @@ class AddressSearch extends Component {
 
     let networkNotice;
     if(this.state.network.main === false) {
-        networkNotice = <NetworkNoticeContainer>⚠️ Web3 network is not on mainnet - results could be funky!</NetworkNoticeContainer>
+        networkNotice = <NetworkNoticeContainer><span role="img" aria-label="Warning">⚠️</span> Web3 network is not on mainnet - results could be funky!</NetworkNoticeContainer>
     }
 
     return (

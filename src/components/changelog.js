@@ -146,13 +146,13 @@ class Changelog extends Component {
                 ?
                     <Drawer>
                         <CloseDrawer onClick={this.toggleDrawer}>
-                            <img src={ExitIcon} />
+                            <img src={ExitIcon} alt="Close"/>
                         </CloseDrawer>
                         {Parser(this.getChangelog())}
                     </Drawer>
                 :
                     <ClosedDrawer onClick={this.toggleDrawer}>
-                        <Icon icon="announcement" /> Updates
+                        <Icon icon="announcement" alt="Updates"/> Updates
                     </ClosedDrawer>
             }
         </ChangelogContainer>

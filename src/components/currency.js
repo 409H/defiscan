@@ -18,11 +18,6 @@ const InterestAmount = styled.span`
 
 class Currency extends Component {
 
-  constructor(props)
-  {
-    super(props);
-  }
-
   formatAsCurrency(flValue)
   {
     return (flValue).toLocaleString('en-US',{style:'currency',currency:'USD'});

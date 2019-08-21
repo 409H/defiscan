@@ -16,11 +16,6 @@ const Segment = styled.div`
 
 class AddressSegments extends Component {
 
-  constructor(props)
-  {
-    super(props);
-  }
-
   getHexColors()
   {
       let arrExtracted = this.props.address.match(/(?:0x)(\w{6})(\w{6})(\w{6})(\w{6})(\w{6})(\w{6})(\w{4})/);

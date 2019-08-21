@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components'
 
 import Web3 from 'web3';
@@ -9,7 +9,6 @@ import LogoStatus from '../../images/providers/status.png'
 import LogoTrust from '../../images/providers/trust.png'
 import LogoBoE from '../../images/built-on-ethereum.svg'
 import LogoDefiPulse from '../../images/defipulse.svg'
-import { getPriceFeedSettings } from '../PriceFeed';
 
 const Web3FooterContainer = styled.div`
     width: 100%;
@@ -49,19 +48,19 @@ function getWeb3Footer(web3, blIsMainnet)
         switch(true) {
             case window.web3.currentProvider.isMetaMask :
                 provider = 'MetaMask'
-                logo = <img src={LogoMetamask} />
+                logo = <img src={LogoMetamask} alt="MetaMask Logo"/>
             break;
             case window.web3.currentProvider.isTrust :
                 provider = 'Trust'
-                logo = <img src={LogoTrust} />
+                logo = <img src={LogoTrust} alt="Trust Logo"/>
             break;
             case window.web3.currentProvider.isStatus :
                 provider = 'Status'
-                logo = <img src={LogoStatus} />
+                logo = <img src={LogoStatus} alt="Status Logo"/>
             break;       
             case window.web3.currentProvider.isToshi :
                 provider = 'Coinbase Wallet'
-                logo = <img src={LogoCoinbase} />
+                logo = <img src={LogoCoinbase} alt="Coinbase Logo"/>
             break;           
             default:
                 provider = 'an unnamed'
@@ -80,9 +79,9 @@ function getWeb3Footer(web3, blIsMainnet)
                 :
                     ``
             }
-            <span>Prices sourced from <a href="https://nomics.com/" target="_blank" rel="nofollow">https://nomics.com/</a> {strFooterPriceFeedText}</span>
+            <span>Prices sourced from <a href="https://nomics.com/" target="_blank" rel="noopener noreferrer">https://nomics.com/</a> {strFooterPriceFeedText}</span>
             <br /><br />
-            <center><a href="https://defipulse.com/" target="_blank"><img src={LogoDefiPulse} alt="DefiPulse Logo" title="Partnered with DefiPulse" height="15px" /></a></center>
+            <center><a href="https://defipulse.com/" target="_blank" rel="noopener noreferrer"><img src={LogoDefiPulse} alt="DefiPulse Logo" title="Partnered with DefiPulse" height="15px" /></a></center>
             <br />
             <center><img src={LogoBoE} title="Built on Ethereum" alt="Built on Ethereum" height="30px" /></center>
         </Web3FooterContainer>
