@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
 import { Panel, Heading } from '@mycrypto/ui';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
-import Web3 from 'web3';
 import Compound from './compound/v1/compound';
-import MakerCdp from './makerdao-cdp/maker';
 import Uniswap from './uniswap/uniswap';
 import SpankChain from './spankchain/spankchain';
 
@@ -49,11 +47,6 @@ const ProtocolContainer = styled.div`
 `
 
 class ProtocolIndex extends Component {
-    
-  constructor()
-  {
-    super();    
-  }
 
   render() {
     return (
@@ -66,7 +59,7 @@ class ProtocolIndex extends Component {
               <Heading as="h3">Compound (v1)</Heading>
               <Description>
                   Compound is an open-source protocol for algorithmic, efficient Money Markets on the Ethereum blockchain. <br />
-                  <a href="https://legacy.compound.finance/" target="_blank" rel="nofollow">https://legacy.compound.finance</a>
+                  <a href="https://legacy.compound.finance/" target="_blank" rel="noopener noreferrer">https://legacy.compound.finance</a>
               </Description>
             <Compound address={this.props.address} web3={this.getWeb3}></Compound>
            </Panel>
@@ -79,7 +72,7 @@ class ProtocolIndex extends Component {
                 <Heading as="h3">Uniswap</Heading>
                 <Description>
                 A protocol for automated token exchange on Ethereum. <br />
-                    <a href="https://uniswap.io/" target="_blank" rel="nofollow">https://uniswap.io</a>
+                    <a href="https://uniswap.io/" target="_blank" rel="noopener noreferrer">https://uniswap.io</a>
                 </Description>           
               <Uniswap address={this.props.address} web3={this.getWeb3}></Uniswap>
             </Panel>
@@ -92,7 +85,7 @@ class ProtocolIndex extends Component {
                 <Heading as="h3">SpankChain</Heading>
                 <Description>
                 A cryptoeconomic powered adult entertainment ecosystem built on the Ethereum network. <br />
-                    <a href="https://spankchain.com/" target="_blank" rel="nofollow">https://spankchain.com/</a>
+                    <a href="https://spankchain.com/" target="_blank" rel="noopener noreferrer">https://spankchain.com/</a>
                 </Description>            
               <SpankChain address={this.props.address} web3={this.getWeb3}></SpankChain>
             </Panel>

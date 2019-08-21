@@ -11,11 +11,6 @@ const ProfileContainer = styled.div`
 
 class HasProfile extends Component {
 
-  constructor(props)
-  {
-    super(props);
-  }
-
   render() {
     return (
         <ProfileContainer bool={this.props.bool}>
