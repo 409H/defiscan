@@ -6,7 +6,7 @@
   "dependencies": {
     "@makerdao/dai": "^0.15.1-kovan.2",
     "@mycrypto/ui": "^0.14.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "eth-ens-namehash": "^2.0.8",
     "ethers": "^4.0.27",
     "ez-ens": "^1.1.1",
